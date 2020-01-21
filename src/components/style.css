@@ -1,0 +1,16 @@
+div.baba-scene>ul>li {
+  float: left;
+  list-style: none;
+}
+
+div.baba-scene>ul {
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+}
+
+div.baba-grid {
+  width: 4rem;
+  height: 4rem;
+  background-color: antiquewhite;
+}
