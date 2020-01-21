@@ -1,7 +1,6 @@
 import {
   SceneInterface,
   GridInterface,
-  GameObjectInterface,
   RemoveInfo,
   AddInfo,
   Position

@@ -9,7 +9,7 @@ import {
   AddInfo,
   RemoveInfo,
 } from './Interface'
-import { deepClone, range } from './utils'
+import { range } from './utils'
 
 
 
@@ -50,7 +50,7 @@ export function moveAll(scene: SceneInterface, control: Control, direction: Dire
     for (let y of range(sizeY)) {
       for (let x of range(sizeX)) {
         const grid = getGrid({ x, y })
-        let pos = grid && grid.getAll().map((v, index) => ({ x, y, z: index })) || []
+        let pos = (grid && grid.getAll().map((v, index) => ({ x, y, z: index }))) || []
         result = [...result, ...pos]
       }
     }

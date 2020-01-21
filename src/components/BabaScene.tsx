@@ -14,10 +14,10 @@ function BabaScene(props: Props) {
   return <div className='baba-scene'>
     {
       range(sizeY).map(y => {
-        return <ul>
+        return <ul key={'ul' + y}>
           {range(sizeX).map(x => {
             const grid = scene.getGrid(x, y);
-            return <li>
+            return <li key={'li' + x}>
               {grid && <BabaGrid grid={grid}></BabaGrid>}
             </li>
           })}

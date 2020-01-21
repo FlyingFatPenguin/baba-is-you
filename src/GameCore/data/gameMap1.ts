@@ -1,7 +1,7 @@
 import { GameMap } from '../Interface'
-import { GridInterface, GameObjectInterface } from '../Interface'
+import {  GameObjectInterface } from '../Interface'
 
-const lava = { name: 'lava' }
+// const lava = { name: 'lava' }
 const water = { name: 'water' }
 const waterText = { name: 'water', isText: true }
 const wallBlock = { name: 'wall' }
