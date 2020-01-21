@@ -11,8 +11,24 @@ function BabaGrid(props: Props) {
   const objs = grid && grid.getAll()
   const obj = objs && objs[objs.length - 1]
   const name = obj && obj.name
+  const isText = obj && obj.isText
+
+
+  let innerHTML;
+  if (!name) {
+    innerHTML = ''
+  } else if (isText) {
+    innerHTML = name
+  } else {
+    try {
+      const img = require('../img/' + name + '.png')
+      innerHTML = <img src={img} alt={'[' + name + ']'}></img>
+    } catch (err) {
+      innerHTML = '[' + name + ']'
+    }
+  }
   return <div className='baba-grid'>
-    {name}
+    {innerHTML}
   </div>
 }
 

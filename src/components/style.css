@@ -1,4 +1,8 @@
-div.baba-scene{
+body {
+  background-color: #13171c;
+}
+
+div.baba-scene {
   align-items: center;
 }
 
@@ -17,6 +21,11 @@ div.baba-scene>ul>li {
 div.baba-grid {
   width: 4rem;
   height: 4rem;
-  background-color: antiquewhite;
+  background-color: white;
   border: 1px solid black;
+}
+
+div.baba-grid>img {
+  max-width: 100%;
+  max-height: 100%;
 }
