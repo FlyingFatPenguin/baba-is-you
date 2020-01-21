@@ -9,6 +9,7 @@ const wallBlock = { name: 'wall' }
 const baba = { name: 'baba' }
 const box = { name: 'box' }
 const rock = { name: 'rock' }
+const flag = { name: 'flag' }
 
 const wall = [wallBlock]
 const grid2 = [water]
@@ -65,6 +66,6 @@ export const map3: GameMap = mapBuilder(15, 15)
   .setArea({ x: 2, y: 8 }, { x: 13, y: 9 }, () => wall)
   .setArea({ x: 7, y: 5 }, { x: 8, y: 8 }, () => [rock])
   .setPos({ x: 3, y: 6 }, () => [baba])
-  .setPos({ x: 11, y: 6 }, () => [baba])
+  .setPos({ x: 11, y: 6 }, () => [flag])
   .build()
 
