@@ -66,7 +66,7 @@ class BabaIsYou extends React.Component<Props, States> {
   render() {
     const history = this.state.history
     const currentScene = history[history.length - 1]
-    return <BabaScene scene={currentScene}></BabaScene>
+    return <BabaScene scene={currentScene} showPos></BabaScene>
   }
 }
 

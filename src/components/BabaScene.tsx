@@ -5,12 +5,16 @@ import BabaGrid from './BabaGrid';
 import './style.css'
 
 interface Props {
-  scene: SceneInterface
+  scene: SceneInterface,
+  showPos?: boolean, // 开启调试模式
 }
 
 function BabaScene(props: Props) {
   const scene = props.scene
+  const showPos = props.showPos
+
   const { sizeX, sizeY } = scene.getSize()
+
   return <div className='baba-scene'>
     {
       range(sizeY).map(y => {
@@ -18,6 +22,7 @@ function BabaScene(props: Props) {
           {range(sizeX).map(x => {
             const grid = scene.getGrid(x, y);
             return <li key={'li' + x}>
+              {showPos && x + ',' + y}
               {grid && <BabaGrid grid={grid}></BabaGrid>}
             </li>
           })}

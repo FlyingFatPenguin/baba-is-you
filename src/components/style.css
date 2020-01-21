@@ -1,5 +1,6 @@
 body {
   background-color: #13171c;
+  color: gray;
 }
 
 div.baba-scene {
@@ -19,9 +20,9 @@ div.baba-scene>ul>li {
 }
 
 div.baba-grid {
-  width: 4rem;
-  height: 4rem;
-  background-color: white;
+  width: 3rem;
+  height: 3rem;
+  /* background-color: white; */
   border: 1px solid black;
 }
 
