@@ -65,12 +65,8 @@ export const stopCheck: Control = {
   onMoveCheck(context, pos, direction) {
     const { rules, getGrid } = context
     const nextPos = getNextPosition(pos, direction)
-    const grid = getGrid(nextPos)
-    if (!grid) {
-      return false;
-    }
-    const nameList = grid.getAll().map(v => v.name)
-    const isStop = nameList.filter(name => rules[name].includes('stop')).length
+    const objs = findObjsWithRule(context, nextPos, 'stop')
+    const isStop = objs && objs.length
     if (isStop) {
       return false
     }
@@ -112,4 +108,16 @@ export const pushThings: Control = {
 
 function ruleNameWithProp(rules: Rules, prop: string) {
   return Object.keys(rules).filter(name => rules[name].includes(prop))
+}
+
+
+function findObjsWithRule(context: Context, pos: Position, rule: string) {
+  const { scene, rules } = context
+  const grid = scene.getGrid(pos.x, pos.y)
+  if (!grid) {
+    return
+  }
+  const objs = grid.getAll()
+  const ruleNames = ruleNameWithProp(rules, rule)
+  return objs.filter(obj => ruleNames.includes(obj.name))
 }
