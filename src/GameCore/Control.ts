@@ -1,4 +1,4 @@
-import { Control, Context, Direction, Position, Rules } from "./Interface";
+import { Control, Context, Direction, Position } from "./Interface";
 import { getNextPosition } from "./move";
 
 
@@ -63,10 +63,9 @@ export const checkTheBound: Control = {
 export const stopCheck: Control = {
   ...defaultControl,
   onMoveCheck(context, pos, direction) {
-    const { rules, getGrid } = context
     const nextPos = getNextPosition(pos, direction)
-    const objs = findObjsWithRule(context, nextPos, 'stop')
-    const isStop = objs && objs.length
+    const positions = findPositionsWithRule(context, nextPos, 'stop')
+    const isStop = positions && positions.length
     if (isStop) {
       return false
     }
@@ -77,47 +76,36 @@ export const stopCheck: Control = {
 export const pushThings: Control = {
   ...defaultControl,
   onMoveCheck(context, pos, direction) {
-    const { getGrid, rules, moveCheck } = context
+    const { moveCheck } = context
     const nextPos = getNextPosition(pos, direction)
-    const nextGrid = getGrid(nextPos)
-    const nextObjs = nextGrid && nextGrid.getAll()
-    if (!nextObjs) {
-      return false
+    const positions = findPositionsWithRule(context, nextPos, 'push');
+    if (!positions) {
+      return true;
     }
-    const canPushRuleNames = ruleNameWithProp(rules, 'push')
-    // 所有下一个方格中的可 push 对象都可以移动, 则当前节点可以移动
-    return nextObjs
-      .filter(obj => canPushRuleNames.includes(obj.name))
-      .every((obj, index) => moveCheck({ ...nextPos, z: index }, direction))
+    return positions.every((pos) => moveCheck(pos, direction))
   },
   onMove(context, pos, direction) {
-    const { getGrid, rules, move } = context
+    const { move } = context
     const nextPos = getNextPosition(pos, direction)
-    const nextGrid = getGrid(nextPos)
-    const nextObjs = nextGrid && nextGrid.getAll()
-    if (!nextObjs) {
-      return false
-    }
-    const canPushRuleNames = ruleNameWithProp(rules, 'push')
-    // 所有下一个方格中的可 push 对象都可以移动, 则当前节点可以移动
-    nextObjs
-      .filter(obj => canPushRuleNames.includes(obj.name))
-      .forEach((obj, index) => move({ ...nextPos, z: index }, direction))
+    const positions = findPositionsWithRule(context, nextPos, 'push')
+    positions.forEach(pos => move(pos, direction))
   }
 }
 
-function ruleNameWithProp(rules: Rules, prop: string) {
-  return Object.keys(rules).filter(name => rules[name].includes(prop))
-}
+// function ruleNameWithProp(rules: Rules, prop: string) {
+//   return Object.keys(rules).filter(name => rules[name].includes(prop))
+// }
 
 
-function findObjsWithRule(context: Context, pos: Position, rule: string) {
-  const { scene, rules } = context
-  const grid = scene.getGrid(pos.x, pos.y)
+function findPositionsWithRule(context: Context, pos: Position, rule: string): Position[] {
+  const { getGrid, rules } = context
+  const grid = getGrid(pos)
   if (!grid) {
-    return
+    return []
   }
-  const objs = grid.getAll()
-  const ruleNames = ruleNameWithProp(rules, rule)
-  return objs.filter(obj => ruleNames.includes(obj.name))
+  const allObjs = grid.getAll()
+  function getProp(objName: string): string[] {
+    return rules[objName] || []
+  }
+  return allObjs.map((v, i) => ({ ...pos, z: i })).filter(pos => getProp(allObjs[pos.z].name).includes(rule))
 }
