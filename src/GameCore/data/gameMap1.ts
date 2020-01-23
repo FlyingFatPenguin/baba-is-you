@@ -50,8 +50,8 @@ function mapBuilder(sizeX: number, sizeY: number) {
     setArea(LeftUp: Pos, RightDown: Pos, callback: Callback) {
       const { x: startX, y: startY } = LeftUp
       const { x: endX, y: endY } = RightDown
-      for (let y = startY; y < endY; y++) {
-        for (let x = startX; x < endX; x++) {
+      for (let y = startY; y < endY + 1; y++) {
+        for (let x = startX; x < endX + 1; x++) {
           this.setPos({ x, y }, callback)
         }
       }
@@ -62,9 +62,9 @@ function mapBuilder(sizeX: number, sizeY: number) {
 
 
 export const map3: GameMap = mapBuilder(15, 12)
-  .setArea({ x: 2, y: 4 }, { x: 13, y: 5 }, () => wall)
-  .setArea({ x: 2, y: 8 }, { x: 13, y: 9 }, () => wall)
-  .setArea({ x: 7, y: 5 }, { x: 8, y: 8 }, () => [rock])
+  .setArea({ x: 2, y: 4 }, { x: 12, y: 4 }, () => wall)
+  .setArea({ x: 2, y: 8 }, { x: 12, y: 8 }, () => wall)
+  .setArea({ x: 7, y: 5 }, { x: 7, y: 7 }, () => [rock])
   .setPos({ x: 3, y: 6 }, () => [baba])
   .setPos({ x: 11, y: 6 }, () => [flag])
   .build()
