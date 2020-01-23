@@ -37,8 +37,7 @@ class BabaIsYou extends React.Component<Props, States> {
   }
   // 移动命令
   move = (direction: Direction) => {
-    const history = this.state.history
-    const currentScene = history[history.length - 1]
+    const currentScene = this.getCurrentScene()
     const winControl = winBuilder(() => alert('win'))
     const control = unionControl(
       youCanMove,
@@ -70,9 +69,12 @@ class BabaIsYou extends React.Component<Props, States> {
       return { history }
     })
   }
-  render() {
+  getCurrentScene = () => {
     const history = this.state.history
-    const currentScene = history[history.length - 1]
+    return history[history.length - 1]
+  }
+  render() {
+    const currentScene = this.getCurrentScene()
     return <BabaScene scene={currentScene}></BabaScene>
   }
 }
