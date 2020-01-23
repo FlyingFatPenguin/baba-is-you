@@ -1,22 +1,7 @@
 import { getSentences, Sentence } from './Words'
 import { SceneInterface, Rules, GameObjectInterface } from './Interface';
 import { range } from './utils';
-
-/**
- * 判断 obj 对象是否是文本
- * @param obj 目标对象
- */
-function isText(obj: GameObjectInterface): boolean {
-  return !!obj.isText
-}
-
-/**
- * 获取类型为文本的 obj 对象的文本内容
- * @param obj 
- */
-function getTextObjContent(obj: GameObjectInterface): string {
-  return obj.name
-}
+import { isText, getTextObjContent } from './GameObjectInterface';
 
 function getSentencesFromScene(scene: SceneInterface) {
   const { sizeX, sizeY } = scene.getSize()

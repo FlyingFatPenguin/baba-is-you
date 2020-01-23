@@ -48,7 +48,7 @@ export interface GridInterface {
 
 export interface GameObjectInterface {
   name: string
-  isText?: boolean
+  content?: string
   direction?: Direction,
 }
 

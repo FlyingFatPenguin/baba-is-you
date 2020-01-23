@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { GridInterface } from '../GameCore/Interface';
+import { isText as checkIsText, getTextObjContent } from '../GameCore/GameObjectInterface'
 import './style.css'
 
 interface Props {
@@ -11,14 +12,14 @@ function BabaGrid(props: Props) {
   const objs = grid && grid.getAll()
   const obj = objs && objs[objs.length - 1]
   const name = obj && obj.name
-  const isText = obj && obj.isText
+  const isText = obj && checkIsText(obj)
 
 
   let innerHTML;
   if (!name) {
     innerHTML = ''
   } else if (isText) {
-    innerHTML = name
+    innerHTML = getTextObjContent(obj)
   } else {
     try {
       const img = require('../img/' + name + '.png')

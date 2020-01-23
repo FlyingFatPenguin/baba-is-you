@@ -62,8 +62,8 @@ function mapBuilder(sizeX: number, sizeY: number) {
 
 function buildText(content: string) {
   return {
-    name: content,
-    isText: true,
+    name: 'text',
+    content,
   }
 }
 
