@@ -9,17 +9,26 @@ import {
   AddInfo,
   RemoveInfo,
 } from './Interface'
-import { range } from './utils'
+import { range, compose, } from './utils'
 
+interface MoveConfig {
+  onMoveCheck(context: Context, pos: Position, direction: Direction): boolean
+  onMove(context: Context, pos: Position, direction: Direction): void
+  callback(context: Context): void
+}
 
-
-export function moveAll(scene: SceneInterface, control: Control, direction: Direction) {
-  const newScene = scene
+/**
+ * 纯函数, 返回一个新的场景作为本次事件的响应
+ * @param control 控制器, 决定当前地图如何更新
+ * @param direction 移动的方向
+ */
+export const updateScene = (control: MoveConfig, direction: Direction) => (startScene: SceneInterface) => {
+  const scene = startScene
   const addList: AddInfo[] = []
   const removeList: RemoveInfo[] = []
 
   const context: Context = {
-    scene: newScene,
+    scene,
     moveCheck,
     move,
     rules: getRules(scene),
@@ -38,7 +47,7 @@ export function moveAll(scene: SceneInterface, control: Control, direction: Dire
     })
   }
   function getGrid(pos: { x: number, y: number }) {
-    return newScene.getGrid(pos.x, pos.y)
+    return scene.getGrid(pos.x, pos.y)
   }
 
   function removeObj(pos: Position) {
@@ -67,15 +76,6 @@ export function moveAll(scene: SceneInterface, control: Control, direction: Dire
     return result
   }
 
-  // function getPositions(name: string): Position[] {
-  //   return allPositions().filter(pos => {
-  //     const obj = getGameObject(pos)
-  //     // console.log(pos)
-  //     // console.log(obj)
-  //     return name === (obj && obj.name)
-  //   })
-  // }
-
   function moveCheck(pos: Position, direction: Direction) {
     return control.onMoveCheck(context, pos, direction)
   }
@@ -89,11 +89,15 @@ export function moveAll(scene: SceneInterface, control: Control, direction: Dire
     }
   }
 
-  control.onStart(context)
-  control.onFinalCheck(context)
-  // console.log(removeList)
-  // console.log(addList)
+  control.callback(context)
   return scene.newScene(removeList, addList)
+}
+
+export function moveAll(startScene: SceneInterface, control: Control, direction: Direction) {
+  return compose(
+    updateScene({ ...control, callback: control.onFinalCheck }, direction),
+    updateScene({ ...control, callback: control.onStart }, direction),
+  )(startScene)
 }
 
 function getRules(scene: SceneInterface): Rules {
