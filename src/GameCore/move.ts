@@ -11,6 +11,7 @@ import {
   MoveConfig
 } from './Interface'
 import { range, compose, } from './utils'
+import { getRules } from './Rules'
 
 /**
  * 纯函数, 返回一个新的场景作为本次事件的响应
@@ -93,17 +94,6 @@ export function moveAll(startScene: SceneInterface, control: Control, direction:
     updateScene(control, direction, control.onFinalCheck),
     updateScene(control, direction, control.onStart),
   )(startScene)
-}
-
-function getRules(scene: SceneInterface): Rules {
-  return {
-    baba: ['you'],
-    lava: ['you'],
-    wall: ['stop'],
-    box: ['push'],
-    rock: ['push'],
-    flag: ['win'],
-  }
 }
 
 export function getNextPosition(from: Position, direction: Direction): Position {

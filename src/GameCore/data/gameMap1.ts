@@ -34,7 +34,7 @@ export const map2: GameMap = [
 ]
 
 type Pos = { x: number, y: number }
-type Callback = (value: GridData) => GridData
+type Callback = (value: GridData, pos: Pos) => GridData
 type GridData = GameObjectInterface[]
 
 
@@ -44,7 +44,7 @@ function mapBuilder(sizeX: number, sizeY: number) {
     build() { return data },
     setPos(pos: Pos, callback: Callback) {
       const { x, y } = pos;
-      data[y][x] = callback(data[y][x])
+      data[y][x] = callback(data[y][x], { x, y })
       return this
     },
     setArea(LeftUp: Pos, RightDown: Pos, callback: Callback) {
@@ -60,6 +60,12 @@ function mapBuilder(sizeX: number, sizeY: number) {
   }
 }
 
+function buildText(content: string) {
+  return {
+    name: content,
+    isText: true,
+  }
+}
 
 export const map3: GameMap = mapBuilder(15, 12)
   .setArea({ x: 2, y: 4 }, { x: 12, y: 4 }, () => wall)
@@ -67,5 +73,8 @@ export const map3: GameMap = mapBuilder(15, 12)
   .setArea({ x: 7, y: 5 }, { x: 7, y: 7 }, () => [rock])
   .setPos({ x: 3, y: 6 }, () => [baba])
   .setPos({ x: 11, y: 6 }, () => [flag])
+  .setPos({ x: 2, y: 2 }, () => ([buildText('baba')]))
+  .setPos({ x: 3, y: 2 }, () => ([buildText('is')]))
+  .setPos({ x: 4, y: 2 }, () => ([buildText('you')]))
   .build()
 
