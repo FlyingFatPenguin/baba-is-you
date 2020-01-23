@@ -24,10 +24,14 @@ export interface Context {
   moveCheck: (pos: Position, direction: Direction) => boolean
   allData(): ObjectInfo[]
 }
-export interface Control {
-  onStart(context: Context): void
+
+export interface MoveConfig {
   onMoveCheck(context: Context, pos: Position, direction: Direction): boolean
   onMove(context: Context, pos: Position, direction: Direction): void
+}
+
+export interface Control extends MoveConfig {
+  onStart(context: Context): void
   onFinalCheck(context: Context): void
 }
 

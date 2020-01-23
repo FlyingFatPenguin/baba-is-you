@@ -8,21 +8,16 @@ import {
   Position,
   AddInfo,
   RemoveInfo,
+  MoveConfig
 } from './Interface'
 import { range, compose, } from './utils'
-
-interface MoveConfig {
-  onMoveCheck(context: Context, pos: Position, direction: Direction): boolean
-  onMove(context: Context, pos: Position, direction: Direction): void
-  callback(context: Context): void
-}
 
 /**
  * 纯函数, 返回一个新的场景作为本次事件的响应
  * @param control 控制器, 决定当前地图如何更新
  * @param direction 移动的方向
  */
-export const updateScene = (control: MoveConfig, direction: Direction) => (startScene: SceneInterface) => {
+const updateScene = (control: MoveConfig, direction: Direction, callback: (context: Context) => void) => (startScene: SceneInterface) => {
   const scene = startScene
   const addList: AddInfo[] = []
   const removeList: RemoveInfo[] = []
@@ -89,14 +84,14 @@ export const updateScene = (control: MoveConfig, direction: Direction) => (start
     }
   }
 
-  control.callback(context)
+  callback(context)
   return scene.newScene(removeList, addList)
 }
 
 export function moveAll(startScene: SceneInterface, control: Control, direction: Direction) {
   return compose(
-    updateScene({ ...control, callback: control.onFinalCheck }, direction),
-    updateScene({ ...control, callback: control.onStart }, direction),
+    updateScene(control, direction, control.onFinalCheck),
+    updateScene(control, direction, control.onStart),
   )(startScene)
 }
 
