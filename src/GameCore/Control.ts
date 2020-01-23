@@ -1,5 +1,6 @@
-import { Control, Context, Direction, Position } from "./Interface";
+import { Control, Context, Direction, Position, ObjectInfo, Rules } from "./Interface";
 import { getNextPosition } from "./move";
+import { intersect } from "./utils";
 
 
 export function unionControl(...args: Control[]): Control {
@@ -34,13 +35,15 @@ export const defaultControl: Control = {
   onFinalCheck(context: Context): void { },
 }
 
+const havaProp = (rules: Rules, ruleName: string) =>
+  (v: ObjectInfo) =>
+    (rules[v.data.name] || []).includes(ruleName)
+
 export const youCanMove: Control = {
   ...defaultControl,
   onStart(context: Context) {
-    const { rules, move, getPositions, direction } = context
-    const youNames = Object.keys(rules).filter(k => rules[k].includes('you'))
-    const youList = youNames.map(getPositions).reduce((a, b) => [...a, ...b])
-    youList.map(you => move(you, direction))
+    const { allData, move, direction, rules } = context
+    allData().filter(havaProp(rules, 'you')).forEach(v => move(v.position, direction))
   },
 }
 
@@ -82,7 +85,7 @@ export const pushThings: Control = {
     if (!positions) {
       return true;
     }
-    return positions.every((pos) => moveCheck(pos, direction))
+    return positions.every(pos => moveCheck(pos, direction))
   },
   onMove(context, pos, direction) {
     const { move } = context
@@ -92,20 +95,28 @@ export const pushThings: Control = {
   }
 }
 
+export function winBuilder(callback: () => void): Control {
+  return {
+    ...defaultControl,
+    onFinalCheck(context) {
+      const { allData, rules } = context
+      const winList = allData().filter(havaProp(rules, 'win')).map(v => v.position)
+      const youList = allData().filter(havaProp(rules, 'you')).map(v => v.position)
+      if (intersect(youList, winList, (a, b) => a.x === b.x && a.y === b.y).length) { // 达到胜利条件
+        callback()
+      }
+    }
+  }
+}
+
 // function ruleNameWithProp(rules: Rules, prop: string) {
 //   return Object.keys(rules).filter(name => rules[name].includes(prop))
 // }
 
 
 function findPositionsWithRule(context: Context, pos: Position, rule: string): Position[] {
-  const { getGrid, rules } = context
-  const grid = getGrid(pos)
-  if (!grid) {
-    return []
-  }
-  const allObjs = grid.getAll()
-  function getProp(objName: string): string[] {
-    return rules[objName] || []
-  }
-  return allObjs.map((v, i) => ({ ...pos, z: i })).filter(pos => getProp(allObjs[pos.z].name).includes(rule))
+  const { allData, rules } = context
+  return allData().filter(v => v.position.x === pos.x && v.position.y === pos.y)
+    .filter(v => (rules[v.data.name] || []).includes(rule))
+    .map(v => v.position)
 }

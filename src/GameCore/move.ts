@@ -20,12 +20,22 @@ export function moveAll(scene: SceneInterface, control: Control, direction: Dire
 
   const context: Context = {
     scene: newScene,
+    moveCheck,
     move,
     rules: getRules(scene),
-    getPositions,
     direction,
-    getGrid,
-    moveCheck
+    allData,
+  }
+  function allData() {
+    return allPositions().map(pos => {
+      const data = getGameObject(pos)
+      // 断言在合理位置上不可能出现无法查询到的对象
+      if (data === undefined) throw new Error('错误的位置' + pos)
+      return {
+        position: pos,
+        data,
+      }
+    })
   }
   function getGrid(pos: { x: number, y: number }) {
     return newScene.getGrid(pos.x, pos.y)
@@ -57,14 +67,14 @@ export function moveAll(scene: SceneInterface, control: Control, direction: Dire
     return result
   }
 
-  function getPositions(name: string): Position[] {
-    return allPositions().filter(pos => {
-      const obj = getGameObject(pos)
-      // console.log(pos)
-      // console.log(obj)
-      return name === (obj && obj.name)
-    })
-  }
+  // function getPositions(name: string): Position[] {
+  //   return allPositions().filter(pos => {
+  //     const obj = getGameObject(pos)
+  //     // console.log(pos)
+  //     // console.log(obj)
+  //     return name === (obj && obj.name)
+  //   })
+  // }
 
   function moveCheck(pos: Position, direction: Direction) {
     return control.onMoveCheck(context, pos, direction)
@@ -91,7 +101,9 @@ function getRules(scene: SceneInterface): Rules {
     baba: ['you'],
     lava: ['you'],
     wall: ['stop'],
-    box: ['push']
+    box: ['push'],
+    rock: ['push'],
+    flag: ['win'],
   }
 }
 

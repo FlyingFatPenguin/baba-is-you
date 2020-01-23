@@ -61,7 +61,7 @@ function mapBuilder(sizeX: number, sizeY: number) {
 }
 
 
-export const map3: GameMap = mapBuilder(15, 15)
+export const map3: GameMap = mapBuilder(15, 12)
   .setArea({ x: 2, y: 4 }, { x: 13, y: 5 }, () => wall)
   .setArea({ x: 2, y: 8 }, { x: 13, y: 9 }, () => wall)
   .setArea({ x: 7, y: 5 }, { x: 8, y: 8 }, () => [rock])

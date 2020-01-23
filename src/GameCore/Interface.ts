@@ -11,14 +11,18 @@ export interface Rules {
 //   y: number
 // }
 
+export interface ObjectInfo {
+  data: GameObjectInterface
+  position: Position
+}
+
 export interface Context {
   scene: SceneInterface,
+  rules: Rules
+  direction: Direction
   move: (pos: Position, direction: Direction) => void
   moveCheck: (pos: Position, direction: Direction) => boolean
-  getPositions(name: string): Position[]
-  rules: Rules,
-  direction: Direction
-  getGrid(pos: Position): GridInterface | undefined
+  allData(): ObjectInfo[]
 }
 export interface Control {
   onStart(context: Context): void

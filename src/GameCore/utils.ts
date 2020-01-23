@@ -11,6 +11,41 @@ export function range(start: number, end: number | undefined = undefined) {
   return result;
 }
 
+// function equals(a: any, b: any): boolean {
+//   if (typeof a !== typeof b) {
+//     return false;
+//   }
+//   if (typeof a === 'object') {
+//     return Object.keys(a).every(key => equals(a[key], b[key]))
+//   } else {
+//     return a === b;
+//   }
+// }
+
+type Equals<T> = (a: T, b: T) => boolean
+
+function includes<T>(arr: T[], obj: T, equals: Equals<T>): boolean {
+  for (let v of arr) {
+    if (equals(v, obj)) {
+      return true
+    }
+  }
+  return false;
+}
+
+/**
+ * 计算两个列表的交集, 返回新对象
+ */
+export function intersect<T>(a: T[], b: T[], equals: Equals<T>): T[] {
+  const result: T[] = []
+  for (let v of a) {
+    if (includes(b, v, equals) && !includes(result, v, equals)) {
+      result.push(v)
+    }
+  }
+  return result
+}
+
 export function deepClone<T>(source: T): T {
   const targetObj: any = Array.isArray(source) ? [] : {}; // 判断复制的目标是数组还是对象
   for (let keys in source) { // 遍历目标
