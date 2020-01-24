@@ -6,7 +6,8 @@ const rock = { name: 'rock' }
 const baba = { name: 'baba' }
 const flag = { name: 'flag' }
 
-export const level0: GameMap = mapBuilder(15, 12)
+export const level0: GameMap = mapBuilder(17, 17)
+  .setViewPos({ x: 1, y: 3 })
   .setArea({ x: 2, y: 4 }, { x: 12, y: 4 }, () => [wall])
   .setArea({ x: 2, y: 8 }, { x: 12, y: 8 }, () => [wall])
   .setArea({ x: 7, y: 5 }, { x: 7, y: 7 }, () => [rock])
