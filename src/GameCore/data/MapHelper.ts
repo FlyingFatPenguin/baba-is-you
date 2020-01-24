@@ -7,9 +7,9 @@ type Callback = (value: GridData, pos: Pos) => GridData
 type GridData = GameObjectInterface[]
 
 
-function addPos(a: Pos, b: Pos) {
-  return { x: a.x + b.x, y: a.y + b.y }
-}
+// function addPos(a: Pos, b: Pos) {
+//   return { x: a.x + b.x, y: a.y + b.y }
+// }
 
 export function mapBuilder(sizeX: number, sizeY: number) {
   const data: GameMap = range(sizeY).map(() => range(sizeX).map(() => []))

@@ -12,8 +12,6 @@ export default function (props: Props) {
   const name = obj && obj.name
   const isText = obj && checkIsText(obj)
 
-
-  let innerHTML;
   if (!name) {
     return <div></div>
   } else if (isText) {
