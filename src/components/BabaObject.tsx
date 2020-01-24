@@ -17,7 +17,21 @@ export default function (props: Props) {
   if (!name) {
     return <div></div>
   } else if (isText) {
-    return <div className='baba-object'>{getTextObjContent(obj)}</div>
+    const content = getTextObjContent(obj)
+    const styleConfig: { [name: string]: React.CSSProperties } = {
+      win: { backgroundColor: '#edde7e' },
+      flag: { color: '#edde7e' },
+      you: { backgroundColor: '#e64a68' },
+      baba: { color: '#e64a68' },
+      stop: { backgroundColor: '#303624' },
+      wall: { color: '#292f3a' },
+      is: { color: '#fbfdfb' },
+      push: { backgroundColor: '#8f6939' },
+      rock: { color: '#8f6939' },
+    }
+    return <div className='baba-object' style={styleConfig[content]}>
+      {content}
+    </div>
   } else {
     return <BabaImg name={name} />
   }
