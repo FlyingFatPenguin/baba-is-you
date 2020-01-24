@@ -21,8 +21,10 @@ function BabaScene(props: Props) {
         return <ul key={'ul' + y}>
           {range(sizeX).map(x => {
             const grid = scene.getGrid(x, y);
-            return <li key={'li' + x}>
-              {showPos && x + ',' + y}
+            return <li key={'li' + x} style={{ position: 'relative' }}>
+              <div style={{ position: 'absolute', color: 'rgba(255,255,255,0.5)', zIndex: 1 }}>
+                {showPos && x + ',' + y}
+              </div>
               {grid && <BabaGrid grid={grid}></BabaGrid>}
             </li>
           })}
