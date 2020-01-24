@@ -48,3 +48,8 @@ export const level1: GameMap = mapBuilder(22, 17)
   .setPos({ x: 5, y: 12 }, () => [buildText('is')])
   .setPos({ x: 5, y: 13 }, () => [buildText('you')])
   .build()
+
+export const allLevel = [
+  level0,
+  level1,
+]

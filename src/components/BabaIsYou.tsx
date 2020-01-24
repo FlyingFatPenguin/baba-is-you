@@ -5,7 +5,8 @@ import { moveAll } from '../GameCore/move';
 import { unionControl, youCanMove, checkTheBound, stopCheck, pushThings, winBuilder } from '../GameCore/Control';
 
 interface Props {
-  startScene: SceneInterface
+  startScene: SceneInterface,
+  onWin: () => void
 }
 
 
@@ -20,7 +21,14 @@ class BabaIsYou extends React.Component<Props, States> {
       history: [this.props.startScene]
     }
   }
-  componentDidMount() {
+  componentDidUpdate(prevProps: Props) {
+    if (this.props.startScene !== prevProps.startScene) {
+      this.setState({
+        history: [this.props.startScene]
+      })
+    }
+  }
+  handleKeydown = (ev: KeyboardEvent) => {
     const keyMap: { [name: string]: () => void } = {
       'h': () => this.move(Direction.left),
       'j': () => this.move(Direction.down),
@@ -29,16 +37,21 @@ class BabaIsYou extends React.Component<Props, States> {
       'u': this.undo,
       'r': this.restart,
     }
-    window.addEventListener('keydown', ev => {
-      const key = ev.key
-      const method = keyMap[key]
-      method && method()
-    })
+    const key = ev.key
+    const method = keyMap[key]
+    method && method()
+  }
+
+  componentDidMount() {
+    window.addEventListener('keydown', this.handleKeydown)
+  }
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.handleKeydown)
   }
   // 移动命令
   move = (direction: Direction) => {
     const currentScene = this.getCurrentScene()
-    const winControl = winBuilder(() => alert('win'))
+    const winControl = winBuilder(this.props.onWin)
     const control = unionControl(
       youCanMove,
       checkTheBound,
