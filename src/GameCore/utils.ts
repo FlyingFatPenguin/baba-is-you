@@ -82,3 +82,7 @@ export function fill(str: string, len: number, char = ' ') {
 export function compose<A, B, C>(f2: (_: B) => C, f1: (_: A) => B): (_: A) => C {
   return v => f2(f1(v))
 }
+
+export function uniq<T>(arr: T[]): T[] {
+  return Array.from(new Set(arr))
+}

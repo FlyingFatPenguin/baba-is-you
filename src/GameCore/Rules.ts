@@ -35,16 +35,36 @@ function findRuleInSentences(sentences: Sentence[]) {
   return result
 }
 
+type ArrayMap<T> = { [key: string]: T[] }
+/**
+ * 将对象列表按照 key 合并, 值加入到同一个列表中
+ * @param objList 
+ * @example
+ * union({
+ *  a:[1],
+ * },
+ * {
+ *  a:[2],
+ *  b:[3],
+ * }) // {a:[1,2],b:[3]}
+ */
+function union<T>(...objList: ArrayMap<T>[]): ArrayMap<T> {
+  return objList.reduce((data, obj) => {
+    Object.keys(obj).reduce((p, key) => {
+      if (!Array.isArray(p[key])) {
+        p[key] = []
+      }
+      p[key] = [...p[key], ...obj[key]]
+      return p;
+    }, data)
+    return data;
+  }, {})
+}
+
 export function getRules(scene: SceneInterface): Rules {
   const sentenceList = getSentencesFromScene(scene)
-  console.log(sentenceList)
-  return findRuleInSentences(sentenceList)
-  // return {
-  //   baba: ['you'],
-  //   lava: ['you'],
-  //   wall: ['stop'],
-  //   box: ['push'],
-  //   rock: ['push'],
-  //   flag: ['win'],
-  // }
+  const defaultRules = {
+    text: ['push'],
+  }
+  return union(findRuleInSentences(sentenceList), defaultRules)
 }
