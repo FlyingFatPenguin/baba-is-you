@@ -49,7 +49,30 @@ export const level1: GameMap = mapBuilder(22, 17)
   .setPos({ x: 5, y: 13 }, () => [buildText('you')])
   .build()
 
+export const level2: GameMap = mapBuilder(22, 17)
+  .setArea({ x: 4, y: 5 }, { x: 4, y: 9 }, () => [flag])
+  .setArea({ x: 5, y: 5 }, { x: 8, y: 5 }, () => [flag])
+  .setArea({ x: 5, y: 9 }, { x: 15, y: 9 }, () => [flag])
+  .setArea({ x: 8, y: 1 }, { x: 8, y: 5 }, () => [flag])
+  .setArea({ x: 9, y: 1 }, { x: 16, y: 1 }, () => [flag])
+  .setArea({ x: 8, y: 9 }, { x: 8, y: 15 }, () => [flag])
+  .setArea({ x: 16, y: 2 }, { x: 16, y: 15 }, () => [flag])
+  .setArea({ x: 9, y: 15 }, { x: 15, y: 15 }, () => [flag])
+  .setPos({ x: 14, y: 12 }, () => [wall])
+  .setPos({ x: 10, y: 11 }, () => [buildText('flag')])
+  .setPos({ x: 10, y: 12 }, () => [buildText('is')])
+  .setPos({ x: 10, y: 13 }, () => [buildText('stop')])
+  .setPos({ x: 14, y: 5 }, () => [buildText('win')])
+  .setPos({ x: 10, y: 3 }, () => [buildText('is')])
+  .setPos({ x: 6, y: 7 }, () => [buildText('baba')])
+  .setPos({ x: 5, y: 11 }, () => [buildText('wall')])
+  .setPos({ x: 5, y: 12 }, () => [buildText('is')])
+  .setPos({ x: 5, y: 13 }, () => [buildText('you')])
+  .build()
+
+
 export const allLevel = [
   level0,
   level1,
+  level2,
 ]
