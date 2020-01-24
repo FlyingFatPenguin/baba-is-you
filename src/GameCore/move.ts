@@ -4,7 +4,6 @@ import {
   GameObjectInterface,
   Context,
   Control,
-  Rules,
   Position,
   AddInfo,
   RemoveInfo,

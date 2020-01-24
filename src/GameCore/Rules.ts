@@ -1,5 +1,5 @@
 import { getSentences, Sentence } from './Words'
-import { SceneInterface, Rules, GameObjectInterface } from './Interface';
+import { SceneInterface, Rules } from './Interface';
 import { range } from './utils';
 import { isText, getTextObjContent } from './GameObjectInterface';
 
