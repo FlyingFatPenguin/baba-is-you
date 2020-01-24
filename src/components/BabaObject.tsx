@@ -17,7 +17,7 @@ export default function (props: Props) {
   if (!name) {
     return <div></div>
   } else if (isText) {
-    return <div>{getTextObjContent(obj)}</div>
+    return <div className='baba-object'>{getTextObjContent(obj)}</div>
   } else {
     return <BabaImg name={name} />
   }

@@ -35,3 +35,14 @@ div.baba-grid>img {
 div.baba-grid>img {
   position: absolute;
 }
+
+div.baba-object {
+  /* font-size: 1.5rem; */
+  /* text-align: center;
+  height: 100%;
+  width: 100%; */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
