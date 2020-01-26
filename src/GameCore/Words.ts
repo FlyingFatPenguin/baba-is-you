@@ -1,5 +1,5 @@
 type Word = string | undefined
-export type Sentence = Word[]
+export type Sentence = string[]
 
 function equals<T>(a: T, b: T): boolean {
   return JSON.stringify(a) === JSON.stringify(b)
@@ -50,5 +50,7 @@ function ruleInLine(textLine: Word[]): Sentence[] {
       ...split(textLine.slice(index + 1), token)
     ]
   }
-  return split(textLine, undefined).filter(v => v.length)
+  // 将 undefined 作为分割符后
+  // 剩余的内容必然是没有 undefined 的
+  return <any>split(textLine, undefined).filter(v => v.length)
 }
