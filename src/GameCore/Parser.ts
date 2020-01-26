@@ -22,6 +22,10 @@ const or: (...parserList: Parser[]) => Parser =
     }
   }
 
+const not: (...values: Word[]) => Parser =
+  (...values) => wordList =>
+    values.every(v => v !== wordList[0]) && { len: 1 }
+
 /////////////
 // 从前向后匹配
 const seq: (...parserList: Parser[]) => Parser =
@@ -76,9 +80,10 @@ const intervalShift: (word: Parser, intervalToken: Parser) => Parser =
   (word, intervalToken) => wordList =>
     interval(word, intervalToken)([...wordList].reverse())
 
-function parsersbuilder(nounNames: Word[], adjNames: Word[]) {
-  const noun = or(...nounNames.map(constant))
-  const adj = or(...adjNames.map(constant))
+function parsersbuilder(nounNames?: Word[], adjNames?: Word[]) {
+  const KEY_WORDS = ['is', 'and', 'on']
+  const noun = nounNames ? or(...nounNames.map(constant)) : not(...KEY_WORDS)
+  const adj = adjNames ? or(...adjNames.map(constant)) : not(...KEY_WORDS)
   const AND = constant('and')
   const subject = intervalShift(noun, AND)
   const predicative = interval(or(noun, adj), AND)
@@ -124,7 +129,7 @@ function split(textLine: Word[], token: Word): Word[][] {
  * @param noun 可作为主语或谓语的词
  * @param adj 只可以作为谓语的词
  */
-const simpleParserBuilder = (noun: Word[], adj: Word[]) => (sentence: Word[]) => {
+const simpleParserBuilder = (noun?: Word[], adj?: Word[]) => (sentence: Word[]) => {
   const { getSubjectWords, getPredicativeWords } = parsersbuilder(noun, adj)
 
   const blockList = split(sentence, 'is')
@@ -156,7 +161,7 @@ const simpleParserBuilder = (noun: Word[], adj: Word[]) => (sentence: Word[]) =>
   return result;
 }
 
-export { simpleParserBuilder }
+export const simpleParser = simpleParserBuilder()
 
 // const { getSubjectWords } = parsersbuilder(['you'], [])
 // console.log(getSubjectWords('I and you'.split(' ')))

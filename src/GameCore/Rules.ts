@@ -2,7 +2,7 @@ import { getSentences, Sentence } from './Words'
 import { SceneInterface, Rules } from './Interface';
 import { range } from './utils';
 import { isText, getTextObjContent } from './GameObjectInterface';
-import { simpleParserBuilder } from './Parser';
+import { simpleParser } from './Parser';
 
 function getSentencesFromScene(scene: SceneInterface) {
   const { sizeX, sizeY } = scene.getSize()
@@ -64,16 +64,6 @@ function union<T>(...objList: ArrayMap<T>[]): ArrayMap<T> {
 
 export function getRules(scene: SceneInterface): Rules {
   const sentenceList = getSentencesFromScene(scene)
-  const simpleParser = simpleParserBuilder([
-    'baba',
-    'lava',
-    'wall',
-    'flag',
-  ], [
-    'you',
-    'win',
-    'stop',
-  ])
   const defaultRules = {
     text: ['push'],
   }
