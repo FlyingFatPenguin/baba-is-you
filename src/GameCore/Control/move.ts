@@ -29,6 +29,8 @@ const updateScene = (control: MoveConfig, direction: Direction, callback: (conte
     rules: getRules(scene),
     direction,
     allData,
+    addObj,
+    removeObj,
   }
   function allData() {
     return allPositions().map(pos => {

@@ -23,6 +23,8 @@ export interface Context {
   move: (pos: Position, direction: Direction) => void
   moveCheck: (pos: Position, direction: Direction) => boolean
   allData(): ObjectInfo[]
+  addObj(pos: Position, obj: GameObjectInterface): void
+  removeObj(pos: Position): void
 }
 
 export interface MoveConfig {

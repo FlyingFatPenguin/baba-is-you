@@ -2,7 +2,7 @@ import * as React from 'react';
 import { SceneInterface, Direction } from '../GameCore/interface/Interface';
 import BabaScene from './BabaScene';
 import { moveAll } from '../GameCore/Control/move';
-import { unionControl, youCanMove, checkTheBound, stopCheck, pushThings, winBuilder } from '../GameCore/Control/Control';
+import { unionControl, youCanMove, checkTheBound, stopCheck, pushThings, winBuilder, transformControl } from '../GameCore/Control/Control';
 
 interface Props {
   startScene: SceneInterface,
@@ -62,6 +62,7 @@ class BabaIsYou extends React.Component<Props, States> {
       stopCheck,
       pushThings,
       winControl,
+      transformControl,
     )
     const newScene = moveAll(currentScene, control, direction)
     this.setState(st => ({

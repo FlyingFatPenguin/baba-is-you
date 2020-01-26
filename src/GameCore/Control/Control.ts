@@ -115,6 +115,36 @@ export function winBuilder(callback: () => void): Control {
 // function ruleNameWithProp(rules: Rules, prop: string) {
 //   return Object.keys(rules).filter(name => rules[name].includes(prop))
 // }
+const NOUN_NAMES = [
+  'baba',
+  'flag',
+  'wall',
+  'rock',
+]
+
+
+export const transformControl: Control = {
+  ...defaultControl,
+  onFinalCheck(context: Context) {
+    const { rules } = context
+    const nounNames = NOUN_NAMES
+    for (let name of nounNames) {
+      const result = (rules[name] || []).filter(v => nounNames.includes(v))
+      result.length && transfrom(context, name, result)
+    }
+  }
+}
+
+function transfrom(context: Context, from: string, target: string[]) {
+  const { allData, addObj, removeObj } = context
+  allData()
+    .filter(v => v.data.name === from)
+    .map(v => v.position)
+    .forEach(pos => {
+      removeObj(pos)
+      target.forEach(name => addObj(pos, { name }))
+    })
+}
 
 
 function findPositionsWithRule(context: Context, pos: Position, rule: string): Position[] {
