@@ -1,6 +1,6 @@
-import { GameMap } from '../Interface'
-import { GameObjectInterface } from '../Interface'
-import { range } from '../utils'
+import { GameMap } from '../interface/Interface'
+import { GameObjectInterface } from '../interface/Interface'
+import { range } from '../utils/utils'
 
 type Pos = { x: number, y: number }
 type Callback = (value: GridData, pos: Pos) => GridData

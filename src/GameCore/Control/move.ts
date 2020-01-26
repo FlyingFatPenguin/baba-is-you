@@ -8,9 +8,9 @@ import {
   AddInfo,
   RemoveInfo,
   MoveConfig
-} from './Interface'
-import { range, compose, } from './utils'
-import { getRules } from './Rules'
+} from '../interface/Interface'
+import { range, compose, } from '../utils/utils'
+import { getRules } from '../Rule/Rules'
 
 /**
  * 纯函数, 返回一个新的场景作为本次事件的响应

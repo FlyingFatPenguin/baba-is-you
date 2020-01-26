@@ -4,9 +4,9 @@ import {
   RemoveInfo,
   AddInfo,
   Position
-} from './Interface'
-import { GameMap } from './Interface';
-import { deepClone } from './utils';
+} from '../interface/Interface'
+import { GameMap } from '../interface/Interface';
+import { deepClone } from '../utils/utils';
 
 class Scene implements SceneInterface {
   _data: GameMap

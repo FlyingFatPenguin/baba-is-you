@@ -1,6 +1,6 @@
-import { Control, Context, Direction, Position, ObjectInfo, Rules } from "./Interface";
+import { Control, Context, Direction, Position, ObjectInfo, Rules } from "../interface/Interface";
 import { getNextPosition } from "./move";
-import { intersect } from "./utils";
+import { intersect } from "../utils/utils";
 
 
 export function unionControl(...args: Control[]): Control {

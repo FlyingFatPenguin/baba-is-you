@@ -1,4 +1,4 @@
-import { GameMap } from "../Interface";
+import { GameMap } from "../interface/Interface";
 import { buildText, mapBuilder } from "./MapHelper";
 
 const wall = { name: 'wall' }

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { GridInterface } from '../GameCore/Interface';
+import { GridInterface } from '../GameCore/interface/Interface';
 import './style.css'
 import BabaObject from './BabaObject';
 

@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { GameObjectInterface } from '../GameCore/Interface';
-import { isText as checkIsText, getTextObjContent } from '../GameCore/GameObjectInterface'
+import { GameObjectInterface } from '../GameCore/interface/Interface';
+import { isText as checkIsText, getTextObjContent } from '../GameCore/interface/GameObjectInterface'
 import BabaImg from './BabaImg';
 
 interface Props {

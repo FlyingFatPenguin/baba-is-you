@@ -1,7 +1,7 @@
 import { getSentences, Sentence } from './Words'
-import { SceneInterface, Rules } from './Interface';
-import { range } from './utils';
-import { isText, getTextObjContent } from './GameObjectInterface';
+import { SceneInterface, Rules } from '../interface/Interface';
+import { range } from '../utils/utils';
+import { isText, getTextObjContent } from '../interface/GameObjectInterface';
 import { simpleParser } from './Parser';
 
 function getSentencesFromScene(scene: SceneInterface) {

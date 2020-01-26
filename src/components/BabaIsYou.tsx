@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { SceneInterface, Direction } from '../GameCore/Interface';
+import { SceneInterface, Direction } from '../GameCore/interface/Interface';
 import BabaScene from './BabaScene';
-import { moveAll } from '../GameCore/move';
-import { unionControl, youCanMove, checkTheBound, stopCheck, pushThings, winBuilder } from '../GameCore/Control';
+import { moveAll } from '../GameCore/Control/move';
+import { unionControl, youCanMove, checkTheBound, stopCheck, pushThings, winBuilder } from '../GameCore/Control/Control';
 
 interface Props {
   startScene: SceneInterface,

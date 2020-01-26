@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { SceneInterface } from '../GameCore/Interface';
-import { range } from '../GameCore/utils'
+import { SceneInterface } from '../GameCore/interface/Interface';
+import { range } from '../GameCore/utils/utils'
 import BabaGrid from './BabaGrid';
 import './style.css'
 
