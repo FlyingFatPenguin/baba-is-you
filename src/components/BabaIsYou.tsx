@@ -34,6 +34,10 @@ class BabaIsYou extends React.Component<Props, States> {
       'j': () => this.move(Direction.down),
       'k': () => this.move(Direction.up),
       'l': () => this.move(Direction.right),
+      'ArrowLeft': () => this.move(Direction.left),
+      'ArrowDown': () => this.move(Direction.down),
+      'ArrowUp': () => this.move(Direction.up),
+      'ArrowRight': () => this.move(Direction.right),
       'u': this.undo,
       'r': this.restart,
     }
