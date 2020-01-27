@@ -220,6 +220,39 @@ export const level5: GameMap = mapBuilder(33, 18)
   .setArea({ x: 32, y: 15 }, { x: 32, y: 17 }, () => [lava])
   .build()
 
+export const level6: GameMap = mapBuilder(24, 14)
+  .setArea({ x: 0, y: 0 }, { x: 4, y: 6 }, () => [rock])
+  .setArea({ x: 0, y: 0 }, { x: 3, y: 5 }, () => [])
+  .setPos({ x: 0, y: 0 }, () => [text.rock])
+  .setPos({ x: 1, y: 0 }, () => [text.is])
+  .setPos({ x: 2, y: 0 }, () => [text.stop])
+  .setPos({ x: 0, y: 2 }, () => [text.skull])
+  .setPos({ x: 1, y: 2 }, () => [text.is])
+  .setPos({ x: 2, y: 2 }, () => [text.defeat])
+  .setPos({ x: 0, y: 4 }, () => [text.flag])
+  .setPos({ x: 1, y: 4 }, () => [text.is])
+  .setPos({ x: 2, y: 4 }, () => [text.win])
+  .setArea({ x: 6, y: 4 }, { x: 10, y: 8 }, () => [wall])
+  .setArea({ x: 7, y: 5 }, { x: 9, y: 7 }, () => [])
+  .setArea({ x: 10, y: 1 }, { x: 15, y: 11 }, () => [wall])
+  .setArea({ x: 11, y: 2 }, { x: 14, y: 10 }, () => [])
+  .setArea({ x: 16, y: 1 }, { x: 19, y: 5 }, () => [wall])
+  .setArea({ x: 16, y: 2 }, { x: 18, y: 4 }, () => [])
+  .setPos({ x: 15, y: 3 }, () => [])
+  .setPos({ x: 10, y: 6 }, () => [])
+  .setArea({ x: 13, y: 6 }, { x: 15, y: 6 }, () => [wall])
+  .setArea({ x: 12, y: 0 }, { x: 12, y: 7 }, () => [skull])
+  .setArea({ x: 13, y: 7 }, { x: 23, y: 7 }, () => [skull])
+  .setPos({ x: 8, y: 6 }, () => [baba])
+  .setPos({ x: 17, y: 3 }, () => [flag])
+  .setPos({ x: 12, y: 9 }, () => [text.wall])
+  .setPos({ x: 13, y: 9 }, () => [text.is])
+  .setPos({ x: 14, y: 9 }, () => [text.stop])
+  .setPos({ x: 8, y: 10 }, () => [text.baba])
+  .setPos({ x: 8, y: 11 }, () => [text.is])
+  .setPos({ x: 8, y: 12 }, () => [text.you])
+  .build()
+
 export const allLevel = [
   level0,
   level1,
@@ -227,4 +260,5 @@ export const allLevel = [
   level3,
   level4,
   level5,
+  level6,
 ]
