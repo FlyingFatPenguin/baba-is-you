@@ -18,22 +18,27 @@ interface Props {
   onWin: () => void
 }
 
+interface HistoryMoment {
+  scene: SceneInterface,
+  isWin?: boolean,
+  isDefeat?: boolean,
+}
 
 interface States {
-  history: SceneInterface[]
+  history: HistoryMoment[]
 }
 
 class BabaIsYou extends React.Component<Props, States> {
   constructor(props: Props) {
     super(props)
     this.state = {
-      history: [this.props.startScene]
+      history: [{ scene: this.props.startScene }]
     }
   }
   componentDidUpdate(prevProps: Props) {
     if (this.props.startScene !== prevProps.startScene) {
       this.setState({
-        history: [this.props.startScene]
+        history: [{ scene: this.props.startScene }]
       })
     }
   }
@@ -75,6 +80,11 @@ class BabaIsYou extends React.Component<Props, States> {
       sinkControl,
     )
     const newScene = moveAll(currentScene, control, direction)
+    this.recordHistory({
+      scene: newScene
+    })
+  }
+  recordHistory = (newScene: HistoryMoment) => {
     this.setState(st => ({
       history: [...st.history, newScene]
     }))
@@ -99,7 +109,7 @@ class BabaIsYou extends React.Component<Props, States> {
   }
   getCurrentScene = () => {
     const history = this.state.history
-    return history[history.length - 1]
+    return history[history.length - 1].scene
   }
   render() {
     const currentScene = this.getCurrentScene()
