@@ -6,6 +6,7 @@ const rock = { name: 'rock' }
 const baba = { name: 'baba' }
 const flag = { name: 'flag' }
 const water = { name: 'water' }
+const skull = { name: 'skull' }
 
 const text = {
   baba: buildText('baba'),
@@ -19,6 +20,8 @@ const text = {
   win: buildText('win'),
   water: buildText('water'),
   sink: buildText('sink'),
+  skull: buildText('skull'),
+  defeat: buildText('defeat'),
 }
 
 export const level0: GameMap = mapBuilder(17, 17)
@@ -117,9 +120,41 @@ export const level3: GameMap = mapBuilder(22, 16)
   .setPos({ x: 6, y: 6 }, () => [text.sink])
   .build()
 
+export const level4: GameMap = mapBuilder(24, 14)
+  // flag is win
+  .setPos({ x: 0, y: 0 }, () => [text.flag])
+  .setPos({ x: 1, y: 0 }, () => [text.is])
+  .setPos({ x: 2, y: 0 }, () => [text.win])
+  // baba is you
+  .setPos({ x: 0, y: 1 }, () => [text.baba])
+  .setPos({ x: 1, y: 1 }, () => [text.is])
+  .setPos({ x: 2, y: 1 }, () => [text.you])
+  // rock is push
+  .setPos({ x: 2, y: 5 }, () => [text.rock])
+  .setPos({ x: 3, y: 5 }, () => [text.is])
+  .setPos({ x: 4, y: 5 }, () => [text.push])
+  // 左下角区域
+  .setArea({ x: 9, y: 9 }, { x: 9, y: 13 }, () => [skull])
+  .setArea({ x: 3, y: 9 }, { x: 3, y: 13 }, () => [skull])
+  .setArea({ x: 5, y: 7 }, { x: 5, y: 9 }, () => [skull])
+  .setArea({ x: 7, y: 7 }, { x: 7, y: 9 }, () => [skull])
+  .setPos({ x: 4, y: 9 }, () => [skull])
+  .setPos({ x: 8, y: 9 }, () => [skull])
+  .setArea({ x: 6, y: 8 }, { x: 6, y: 10 }, () => [rock])
+  .setPos({ x: 6, y: 12 }, () => [baba])
+  // 右侧区域
+  .setArea({ x: 13, y: 3 }, { x: 21, y: 11 }, () => [skull])
+  .setArea({ x: 14, y: 4 }, { x: 20, y: 10 }, () => [])
+  .setPos({ x: 15, y: 5 }, () => [text.skull])
+  .setPos({ x: 15, y: 6 }, () => [text.is])
+  .setPos({ x: 15, y: 7 }, () => [text.defeat])
+  .setPos({ x: 18, y: 9 }, () => [flag])
+  .build()
+
 export const allLevel = [
   level0,
   level1,
   level2,
   level3,
+  level4,
 ]

@@ -10,7 +10,8 @@ import {
   pushThings,
   winBuilder,
   transformControl,
-  sinkControl
+  sinkControl,
+  defeatControlBuilder
 } from '../GameCore/Control/Control';
 
 interface Props {
@@ -77,6 +78,11 @@ class BabaIsYou extends React.Component<Props, States> {
     const winControl = winBuilder(() => {
       isWin = true
     })
+    // 记录当前是否失败
+    let isDefeat = false
+    const defeatControl = defeatControlBuilder(() => {
+      isDefeat = true
+    })
     const control = unionControl(
       youCanMove,
       checkTheBound,
@@ -85,11 +91,13 @@ class BabaIsYou extends React.Component<Props, States> {
       winControl,
       transformControl,
       sinkControl,
+      defeatControl,
     )
     const newScene = moveAll(currentScene, control, direction)
     this.recordHistory({
       scene: newScene,
       isWin,
+      isDefeat,
     })
   }
 

@@ -28,6 +28,8 @@ export default function (props: Props) {
       rock: { color: '#8f6939' },
       water: { color: '#5899d2' },
       sink: { backgroundColor: '#5899d2' },
+      skull: { color: '#763125' },
+      defeat: { backgroundColor: '#763125' },
     }
     return <div className='baba-object' style={styleConfig[content]}>
       {content}

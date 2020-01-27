@@ -167,3 +167,19 @@ export const sinkControl: Control = {
     })
   }
 }
+
+export const defeatControlBuilder: (callback: () => void) => Control =
+  callback => ({
+    ...defaultControl,
+    onFinalCheck(context: Context) {
+      const { scene, rules } = context
+      const isDefeat = allGrid(scene).some(objInfos => {
+        const haveDefeat = objInfos.some(havaProp(rules, 'defeat'))
+        const haveYou = objInfos.some(havaProp(rules, 'you'))
+        if (haveYou && haveDefeat) {
+          return true;
+        }
+      })
+      isDefeat && callback()
+    }
+  })
