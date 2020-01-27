@@ -116,10 +116,7 @@ export function winBuilder(callback: () => void): Control {
       const winList = allData(scene).filter(havaProp(rules, 'win')).map(v => v.position)
       const youList = allData(scene).filter(havaProp(rules, 'you')).map(v => v.position)
       if (intersect(youList, winList, (a, b) => a.x === b.x && a.y === b.y).length) { // 达到胜利条件
-        // 这里使用异步是为了使得当前的判断结果运行结束
-        // 使得画面不至于卡顿
-        // 同时不至于结束事件
-        setTimeout(callback, 0)
+        callback()
       }
     }
   }

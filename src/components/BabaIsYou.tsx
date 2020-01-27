@@ -69,7 +69,14 @@ class BabaIsYou extends React.Component<Props, States> {
   // 移动命令
   move = (direction: Direction) => {
     const currentScene = this.getCurrentScene()
-    const winControl = winBuilder(this.props.onWin)
+    if (!this.canMove()) {
+      return
+    }
+    // 记录当前是否胜利
+    let isWin = false
+    const winControl = winBuilder(() => {
+      isWin = true
+    })
     const control = unionControl(
       youCanMove,
       checkTheBound,
@@ -81,13 +88,25 @@ class BabaIsYou extends React.Component<Props, States> {
     )
     const newScene = moveAll(currentScene, control, direction)
     this.recordHistory({
-      scene: newScene
+      scene: newScene,
+      isWin,
     })
   }
+
+  canMove = () => {
+    const currentMoment = this.getCurrentHistoryMoment()
+    return !(currentMoment.isDefeat || currentMoment.isWin)
+  }
+
+  //********** history 控制 ************
+  // 加入记录
   recordHistory = (newScene: HistoryMoment) => {
     this.setState(st => ({
       history: [...st.history, newScene]
     }))
+    if (newScene.isWin) {
+      this.props.onWin()
+    }
   }
   // 撤销
   undo = () => {
@@ -107,9 +126,12 @@ class BabaIsYou extends React.Component<Props, States> {
       return { history }
     })
   }
-  getCurrentScene = () => {
+  getCurrentHistoryMoment = () => {
     const history = this.state.history
-    return history[history.length - 1].scene
+    return history[history.length - 1]
+  }
+  getCurrentScene = () => {
+    return this.getCurrentHistoryMoment().scene
   }
   render() {
     const currentScene = this.getCurrentScene()
