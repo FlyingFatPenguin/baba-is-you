@@ -1,6 +1,6 @@
 import { Control, Context, Direction, Position, ObjectInfo, Rules } from "../interface/Interface";
 import { getNextPosition } from "./move";
-import { intersect } from "../utils/utils";
+import { intersect, range } from "../utils/utils";
 
 
 export function unionControl(...args: Control[]): Control {
@@ -134,6 +134,21 @@ export const transformControl: Control = {
     }
   }
 }
+
+// export const sinkControl: Control = {
+//   ...defaultControl,
+//   onFinalCheck(context: Context) {
+//     const { rules, allData, scene } = context
+//     const { sizeX, sizeY } = scene.getSize()
+//     for (let y of range(sizeY)) {
+//       for (let x of range(sizeX)) {
+//         const grid = scene.getGrid(x, y)
+//         if (!grid) { continue }
+//         const objs = 
+//       }
+//     }
+//   }
+// }
 
 function transfrom(context: Context, from: string, target: string[]) {
   const { allData, addObj, removeObj } = context

@@ -26,6 +26,8 @@ export default function (props: Props) {
       is: { color: '#fbfdfb' },
       push: { backgroundColor: '#8f6939' },
       rock: { color: '#8f6939' },
+      water: { color: '#5899d2' },
+      sink: { backgroundColor: '#5899d2' },
     }
     return <div className='baba-object' style={styleConfig[content]}>
       {content}
