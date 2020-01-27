@@ -30,9 +30,12 @@ export default function (props: Props) {
       sink: { backgroundColor: '#5899d2' },
       skull: { color: '#763125' },
       defeat: { backgroundColor: '#763125' },
+      lava: { color: '#dd6146' },
+      melt: { backgroundColor: '#559ad1' },
+      hot: { backgroundColor: '#e9994a' },
     }
     return <div className='baba-object' style={styleConfig[content]}>
-      {content}
+      {content.toUpperCase()}
     </div>
   } else {
     return <BabaImg name={name} />

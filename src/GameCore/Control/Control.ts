@@ -130,6 +130,9 @@ const NOUN_NAMES = [
   'flag',
   'wall',
   'rock',
+  'water',
+  'skull',
+  'lava',
 ]
 
 

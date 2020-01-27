@@ -7,6 +7,7 @@ const baba = { name: 'baba' }
 const flag = { name: 'flag' }
 const water = { name: 'water' }
 const skull = { name: 'skull' }
+const lava = { name: 'lava' }
 
 const text = {
   baba: buildText('baba'),
@@ -22,6 +23,9 @@ const text = {
   sink: buildText('sink'),
   skull: buildText('skull'),
   defeat: buildText('defeat'),
+  lava: buildText('lava'),
+  melt: buildText('melt'),
+  hot: buildText('hot'),
 }
 
 export const level0: GameMap = mapBuilder(17, 17)
@@ -151,10 +155,76 @@ export const level4: GameMap = mapBuilder(24, 14)
   .setPos({ x: 18, y: 9 }, () => [flag])
   .build()
 
+export const level5: GameMap = mapBuilder(33, 18)
+  .setArea({ x: 0, y: 1 }, { x: 3, y: 1 }, () => [lava])
+  .setArea({ x: 0, y: 2 }, { x: 1, y: 2 }, () => [lava])
+  .setArea({ x: 3, y: 0 }, { x: 4, y: 0 }, () => [lava])
+  .setPos({ x: 0, y: 3 }, () => [lava])
+  .setPos({ x: 0, y: 0 }, () => [text.wall])
+  .setPos({ x: 1, y: 0 }, () => [text.is])
+  .setPos({ x: 2, y: 0 }, () => [text.stop])
+  .setArea({ x: 6, y: 0 }, { x: 6, y: 7 }, () => [wall])
+  .setPos({ x: 7, y: 4 }, () => [wall])
+  .setPos({ x: 11, y: 4 }, () => [wall])
+  .setPos({ x: 12, y: 0 }, () => [wall])
+  .setPos({ x: 8, y: 7 }, () => [wall])
+  .setArea({ x: 7, y: 6 }, { x: 12, y: 6 }, () => [wall])
+  .setArea({ x: 12, y: 2 }, { x: 12, y: 4 }, () => [wall])
+  .setArea({ x: 13, y: 3 }, { x: 16, y: 3 }, () => [wall])
+  .setArea({ x: 16, y: 0 }, { x: 16, y: 2 }, () => [wall])
+  // baba is you
+  .setPos({ x: 8, y: 3 }, () => [text.baba])
+  .setPos({ x: 9, y: 3 }, () => [text.is])
+  .setPos({ x: 10, y: 3 }, () => [text.you])
+  // rock is push
+  .setPos({ x: 7, y: 7 }, () => [text.rock])
+  .setPos({ x: 7, y: 8 }, () => [text.is])
+  .setPos({ x: 7, y: 9 }, () => [text.push])
+  .setPos({ x: 12, y: 5 }, () => [rock])
+  .setPos({ x: 14, y: 1 }, () => [baba])
+  // 下方墙
+  .setArea({ x: 7, y: 12 }, { x: 7, y: 15 }, () => [wall])
+  .setArea({ x: 11, y: 12 }, { x: 11, y: 15 }, () => [wall])
+  .setArea({ x: 8, y: 13 }, { x: 10, y: 13 }, () => [wall])
+  .setArea({ x: 8, y: 15 }, { x: 10, y: 15 }, () => [wall])
+  //
+  .setPos({ x: 12, y: 10 }, () => [text.lava])
+  .setPos({ x: 8, y: 12 }, () => [text.baba])
+  .setPos({ x: 9, y: 12 }, () => [text.is])
+  .setPos({ x: 10, y: 12 }, () => [text.melt])
+  .setPos({ x: 8, y: 14 }, () => [text.lava])
+  .setPos({ x: 9, y: 14 }, () => [text.is])
+  .setPos({ x: 10, y: 14 }, () => [text.hot])
+  .setArea({ x: 11, y: 17 }, { x: 11, y: 17 }, () => [lava])
+  .setArea({ x: 12, y: 16 }, { x: 12, y: 17 }, () => [lava])
+  .setArea({ x: 13, y: 15 }, { x: 13, y: 17 }, () => [lava])
+  .setArea({ x: 14, y: 13 }, { x: 14, y: 17 }, () => [lava])
+  .setArea({ x: 15, y: 11 }, { x: 15, y: 17 }, () => [lava])
+  .setArea({ x: 16, y: 9 }, { x: 16, y: 17 }, () => [lava])
+  .setArea({ x: 17, y: 6 }, { x: 17, y: 17 }, () => [lava])
+  .setArea({ x: 18, y: 3 }, { x: 18, y: 15 }, () => [lava])
+  .setArea({ x: 19, y: 1 }, { x: 19, y: 13 }, () => [lava])
+  .setArea({ x: 20, y: 0 }, { x: 20, y: 12 }, () => [lava])
+  .setArea({ x: 21, y: 0 }, { x: 21, y: 10 }, () => [lava])
+  .setArea({ x: 22, y: 0 }, { x: 22, y: 9 }, () => [lava])
+  .setArea({ x: 23, y: 0 }, { x: 23, y: 6 }, () => [lava])
+  .setArea({ x: 24, y: 0 }, { x: 24, y: 3 }, () => [lava])
+  .setArea({ x: 25, y: 0 }, { x: 25, y: 1 }, () => [lava])
+  .setArea({ x: 26, y: 0 }, { x: 26, y: 0 }, () => [lava])
+  .setPos({ x: 26, y: 12 }, () => [flag])
+  .setPos({ x: 25, y: 14 }, () => [text.flag])
+  .setPos({ x: 26, y: 14 }, () => [text.is])
+  .setPos({ x: 27, y: 14 }, () => [text.win])
+  .setArea({ x: 30, y: 17 }, { x: 30, y: 17 }, () => [lava])
+  .setArea({ x: 31, y: 16 }, { x: 31, y: 17 }, () => [lava])
+  .setArea({ x: 32, y: 15 }, { x: 32, y: 17 }, () => [lava])
+  .build()
+
 export const allLevel = [
   level0,
   level1,
   level2,
   level3,
   level4,
+  level5,
 ]
