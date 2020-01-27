@@ -39,14 +39,11 @@ export interface Control extends MoveConfig {
 
 export interface SceneInterface {
   getSize(): { sizeX: number, sizeY: number }
-  getGrid(x: number, y: number): GridInterface | undefined
+  getGrid(x: number, y: number): GridInterface
   newScene(removeList: RemoveInfo[], addList: AddInfo[]): SceneInterface
 }
 
-export interface GridInterface {
-  get(index: number): GameObjectInterface | undefined
-  getAll(): GameObjectInterface[]
-}
+export type GridInterface = GameObjectInterface[]
 
 export interface GameObjectInterface {
   name: string

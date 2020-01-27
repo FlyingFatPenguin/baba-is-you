@@ -57,7 +57,7 @@ const updateScene = (control: MoveConfig, direction: Direction, callback: (conte
 
   function getGameObject(pos: Position) {
     const grid = getGrid(pos)
-    return grid && grid.get(pos.z)
+    return grid[pos.z]
   }
 
   function allPositions(): Position[] {
@@ -66,7 +66,7 @@ const updateScene = (control: MoveConfig, direction: Direction, callback: (conte
     for (let y of range(sizeY)) {
       for (let x of range(sizeX)) {
         const grid = getGrid({ x, y })
-        let pos = (grid && grid.getAll().map((v, index) => ({ x, y, z: index }))) || []
+        let pos = grid.map((v, index) => ({ x, y, z: index }))
         result = [...result, ...pos]
       }
     }

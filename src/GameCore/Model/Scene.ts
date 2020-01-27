@@ -23,20 +23,11 @@ class Scene implements SceneInterface {
     return { sizeX, sizeY }
   }
 
-  getGrid(x: number, y: number): GridInterface | undefined {
+  getGrid(x: number, y: number): GridInterface {
     const data = this._data
     const line = data[y]
     const current = line && line[x]
-    if (current) {
-      return {
-        get(index: number) {
-          return current[index]
-        },
-        getAll() {
-          return current
-        }
-      }
-    }
+    return current || []
   }
   newScene(removeList: RemoveInfo[], addList: AddInfo[]): SceneInterface {
     const cloneData = deepClone(this._data)

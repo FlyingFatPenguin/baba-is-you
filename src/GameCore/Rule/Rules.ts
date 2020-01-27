@@ -10,7 +10,7 @@ function getSentencesFromScene(scene: SceneInterface) {
   for (let y of range(sizeY)) {
     for (let x of range(sizeX)) {
       const grid = scene.getGrid(x, y)
-      const name = grid && grid.getAll().filter(isText).map(getTextObjContent)[0]
+      const name = grid.filter(isText).map(getTextObjContent)[0]
       name && (textTable[y][x] = name)
     }
   }
