@@ -5,11 +5,14 @@ import {
   Position,
   ObjectInfo,
   Rules,
-  GameObjectInterface,
-  SceneInterface
 } from "../interface/Interface";
 import { getNextPosition } from "./move";
-import { intersect, range } from "../utils/utils";
+import { intersect } from "../utils/utils";
+import {
+  allGrid, 
+  transfrom, 
+  findPositionsWithRule 
+} from "./ControlHelper";
 
 
 export function unionControl(...args: Control[]): Control {
@@ -165,42 +168,4 @@ export const sinkControl: Control = {
       }
     })
   }
-}
-
-function transfrom(context: Context, from: string, target: string[]) {
-  const { allData, addObj, removeObj } = context
-  allData()
-    .filter(v => v.data.name === from)
-    .map(v => v.position)
-    .forEach(pos => {
-      removeObj(pos)
-      target.forEach(name => addObj(pos, { name }))
-    })
-}
-
-
-function findPositionsWithRule(context: Context, pos: Position, rule: string): Position[] {
-  const { allData, rules } = context
-  return allData().filter(v => v.position.x === pos.x && v.position.y === pos.y)
-    .filter(v => (rules[v.data.name] || []).includes(rule))
-    .map(v => v.position)
-}
-
-function allGrid(scene: SceneInterface): ObjectInfo[][] {
-  const { sizeX, sizeY } = scene.getSize()
-  const result = []
-  for (let y of range(sizeY)) {
-    for (let x of range(sizeX)) {
-      const grid = scene.getGrid(x, y)
-      const objToInfo =
-        (obj: GameObjectInterface, z: number): ObjectInfo => {
-          return {
-            data: obj,
-            position: { x, y, z },
-          }
-        }
-      result.push(grid.map(objToInfo))
-    }
-  }
-  return result
 }
