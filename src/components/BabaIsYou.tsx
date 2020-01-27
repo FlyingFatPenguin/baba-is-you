@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { SceneInterface, Direction } from '../GameCore/interface/Interface';
+import { SceneInterface, Direction, GameMap } from '../GameCore/interface/Interface';
 import BabaScene from './BabaScene';
 import { moveAll } from '../GameCore/Control/move';
 import {
@@ -14,9 +14,10 @@ import {
   defeatControl,
   meltHotControl
 } from '../GameCore/Control/Control';
+import Scene from '../GameCore/Model/Scene';
 
 interface Props {
-  startScene: SceneInterface,
+  startGameMap: GameMap,
   onWin: () => void
 }
 
@@ -34,13 +35,14 @@ class BabaIsYou extends React.Component<Props, States> {
   constructor(props: Props) {
     super(props)
     this.state = {
-      history: [{ scene: this.props.startScene }]
+      history: [{ scene: new Scene(this.props.startGameMap) }]
     }
   }
   componentDidUpdate(prevProps: Props) {
-    if (this.props.startScene !== prevProps.startScene) {
+    if (this.props.startGameMap !== prevProps.startGameMap) {
+      console.log('update')
       this.setState({
-        history: [{ scene: this.props.startScene }]
+        history: [{ scene: new Scene(this.props.startGameMap) }]
       })
     }
   }
