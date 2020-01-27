@@ -171,21 +171,22 @@ export const sinkControl: Control = {
   }
 }
 
-export const defeatControlBuilder: (callback: () => void) => Control =
-  callback => ({
-    ...defaultControl,
-    onFinalCheck(context: Context) {
-      const { scene, rules } = context
-      const isDefeat = allGrid(scene).some(objInfos => {
-        const haveDefeat = objInfos.some(havaProp(rules, 'defeat'))
-        const haveYou = objInfos.some(havaProp(rules, 'you'))
-        if (haveYou && haveDefeat) {
-          return true;
-        }
-      })
-      isDefeat && callback()
-    }
-  })
+export const defeatControl: Control = {
+  ...defaultControl,
+  onFinalCheck(context: Context) {
+    const { scene, rules, removeObj } = context
+    allGrid(scene).forEach(objInfos => {
+      // 将 x, y 坐标相同的元素分类
+      const youList = objInfos.filter(havaProp(rules, 'you'))
+      const defeatList = objInfos.filter(havaProp(rules, 'defeat'))
+
+      // 每一个 sink 将和一个 canSink 共同湮灭
+      if (defeatList.length) {
+        youList.forEach(objInfo => removeObj(objInfo.position))
+      }
+    })
+  }
+}
 
 export const meltHotControl: Control = {
   ...defaultControl,
