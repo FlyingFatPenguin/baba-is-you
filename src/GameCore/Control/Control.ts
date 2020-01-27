@@ -1,4 +1,13 @@
-import { Control, Context, Direction, Position, ObjectInfo, Rules } from "../interface/Interface";
+import {
+  Control,
+  Context,
+  Direction,
+  Position,
+  ObjectInfo,
+  Rules,
+  GameObjectInterface,
+  SceneInterface
+} from "../interface/Interface";
 import { getNextPosition } from "./move";
 import { intersect, range } from "../utils/utils";
 
@@ -135,20 +144,28 @@ export const transformControl: Control = {
   }
 }
 
-// export const sinkControl: Control = {
-//   ...defaultControl,
-//   onFinalCheck(context: Context) {
-//     const { rules, allData, scene } = context
-//     const { sizeX, sizeY } = scene.getSize()
-//     for (let y of range(sizeY)) {
-//       for (let x of range(sizeX)) {
-//         const grid = scene.getGrid(x, y)
-//         if (!grid) { continue }
-//         const objs = 
-//       }
-//     }
-//   }
-// }
+export const sinkControl: Control = {
+  ...defaultControl,
+  onFinalCheck(context: Context) {
+    const { rules, scene, removeObj } = context
+    allGrid(scene).forEach(objInfos => {
+      // 将 x, y 坐标相同的元素分类
+      const sinkList = objInfos.filter(havaProp(rules, 'sink'))
+      const canSinkList = objInfos.filter(v => !havaProp(rules, 'sink')(v))
+
+      // 每一个 sink 将和一个 canSink 共同湮灭
+      for (let i in sinkList) {
+        const sink = sinkList[i]
+        const canSink = canSinkList[i]
+
+        if (sink && canSink) {
+          removeObj(sink.position)
+          removeObj(canSink.position)
+        }
+      }
+    })
+  }
+}
 
 function transfrom(context: Context, from: string, target: string[]) {
   const { allData, addObj, removeObj } = context
@@ -167,4 +184,23 @@ function findPositionsWithRule(context: Context, pos: Position, rule: string): P
   return allData().filter(v => v.position.x === pos.x && v.position.y === pos.y)
     .filter(v => (rules[v.data.name] || []).includes(rule))
     .map(v => v.position)
+}
+
+function allGrid(scene: SceneInterface): ObjectInfo[][] {
+  const { sizeX, sizeY } = scene.getSize()
+  const result = []
+  for (let y of range(sizeY)) {
+    for (let x of range(sizeX)) {
+      const grid = scene.getGrid(x, y)
+      const objToInfo =
+        (obj: GameObjectInterface, z: number): ObjectInfo => {
+          return {
+            data: obj,
+            position: { x, y, z },
+          }
+        }
+      result.push(grid.map(objToInfo))
+    }
+  }
+  return result
 }
