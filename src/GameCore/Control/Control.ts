@@ -186,3 +186,20 @@ export const defeatControlBuilder: (callback: () => void) => Control =
       isDefeat && callback()
     }
   })
+
+export const meltHotControl: Control = {
+  ...defaultControl,
+  onFinalCheck(context: Context) {
+    const { rules, scene, removeObj } = context
+    allGrid(scene).forEach(objInfos => {
+      // 将 x, y 坐标相同的元素分类
+      const meltList = objInfos.filter(havaProp(rules, 'melt'))
+      const hotList = objInfos.filter(havaProp(rules, 'hot'))
+
+      // 每一个 sink 将和一个 canSink 共同湮灭
+      if (hotList.length) {
+        meltList.forEach(objInfo => removeObj(objInfo.position))
+      }
+    })
+  }
+}

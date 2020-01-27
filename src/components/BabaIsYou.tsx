@@ -11,7 +11,8 @@ import {
   winBuilder,
   transformControl,
   sinkControl,
-  defeatControlBuilder
+  defeatControlBuilder,
+  meltHotControl
 } from '../GameCore/Control/Control';
 
 interface Props {
@@ -92,6 +93,7 @@ class BabaIsYou extends React.Component<Props, States> {
       transformControl,
       sinkControl,
       defeatControl,
+      meltHotControl,
     )
     const newScene = moveAll(currentScene, control, direction)
     this.recordHistory({
