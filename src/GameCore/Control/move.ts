@@ -9,7 +9,7 @@ import {
   RemoveInfo,
   MoveConfig
 } from '../interface/Interface'
-import { range, compose, } from '../utils/utils'
+import { compose } from '../utils/utils'
 import { getRules } from '../Rule/Rules'
 
 /**
@@ -28,21 +28,21 @@ const updateScene = (control: MoveConfig, direction: Direction, callback: (conte
     move,
     rules: getRules(scene),
     direction,
-    allData,
+    // allData,
     addObj,
     removeObj,
   }
-  function allData() {
-    return allPositions().map(pos => {
-      const data = getGameObject(pos)
-      // 断言在合理位置上不可能出现无法查询到的对象
-      if (data === undefined) throw new Error('错误的位置' + pos)
-      return {
-        position: pos,
-        data,
-      }
-    })
-  }
+  // function allData() {
+  //   return allPositions().map(pos => {
+  //     const data = getGameObject(pos)
+  //     // 断言在合理位置上不可能出现无法查询到的对象
+  //     if (data === undefined) throw new Error('错误的位置' + pos)
+  //     return {
+  //       position: pos,
+  //       data,
+  //     }
+  //   })
+  // }
   function getGrid(pos: { x: number, y: number }) {
     return scene.getGrid(pos.x, pos.y)
   }
@@ -60,18 +60,18 @@ const updateScene = (control: MoveConfig, direction: Direction, callback: (conte
     return grid[pos.z]
   }
 
-  function allPositions(): Position[] {
-    const { sizeX, sizeY } = scene.getSize()
-    let result: Position[] = []
-    for (let y of range(sizeY)) {
-      for (let x of range(sizeX)) {
-        const grid = getGrid({ x, y })
-        let pos = grid.map((v, index) => ({ x, y, z: index }))
-        result = [...result, ...pos]
-      }
-    }
-    return result
-  }
+  // function allPositions(): Position[] {
+  //   const { sizeX, sizeY } = scene.getSize()
+  //   let result: Position[] = []
+  //   for (let y of range(sizeY)) {
+  //     for (let x of range(sizeX)) {
+  //       const grid = getGrid({ x, y })
+  //       let pos = grid.map((v, index) => ({ x, y, z: index }))
+  //       result = [...result, ...pos]
+  //     }
+  //   }
+  //   return result
+  // }
 
   function moveCheck(pos: Position, direction: Direction) {
     return control.onMoveCheck(context, pos, direction)

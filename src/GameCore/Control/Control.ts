@@ -9,9 +9,10 @@ import {
 import { getNextPosition } from "./move";
 import { intersect } from "../utils/utils";
 import {
-  allGrid, 
-  transfrom, 
-  findPositionsWithRule 
+  allGrid,
+  transfrom,
+  findPositionsWithRule,
+  allData
 } from "./ControlHelper";
 
 
@@ -54,8 +55,8 @@ const havaProp = (rules: Rules, ruleName: string) =>
 export const youCanMove: Control = {
   ...defaultControl,
   onStart(context: Context) {
-    const { allData, move, direction, rules } = context
-    allData().filter(havaProp(rules, 'you')).forEach(v => move(v.position, direction))
+    const { scene, move, direction, rules } = context
+    allData(scene).filter(havaProp(rules, 'you')).forEach(v => move(v.position, direction))
   },
 }
 
@@ -111,9 +112,9 @@ export function winBuilder(callback: () => void): Control {
   return {
     ...defaultControl,
     onFinalCheck(context) {
-      const { allData, rules } = context
-      const winList = allData().filter(havaProp(rules, 'win')).map(v => v.position)
-      const youList = allData().filter(havaProp(rules, 'you')).map(v => v.position)
+      const { rules, scene } = context
+      const winList = allData(scene).filter(havaProp(rules, 'win')).map(v => v.position)
+      const youList = allData(scene).filter(havaProp(rules, 'you')).map(v => v.position)
       if (intersect(youList, winList, (a, b) => a.x === b.x && a.y === b.y).length) { // 达到胜利条件
         // 这里使用异步是为了使得当前的判断结果运行结束
         // 使得画面不至于卡顿

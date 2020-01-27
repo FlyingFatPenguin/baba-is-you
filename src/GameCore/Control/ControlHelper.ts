@@ -1,18 +1,19 @@
-import { 
-  Context, 
-  ObjectInfo, 
+import {
+  Context,
+  ObjectInfo,
   SceneInterface,
-  GameObjectInterface, 
+  GameObjectInterface,
 } from "../interface/Interface"
 import {
   Position
-}from '../interface/Interface'
+} from '../interface/Interface'
 import { range } from "../utils/utils"
 
 
+
 export function transfrom(context: Context, from: string, target: string[]) {
-  const { allData, addObj, removeObj } = context
-  allData()
+  const { addObj, removeObj, scene } = context
+  allData(scene)
     .filter(v => v.data.name === from)
     .map(v => v.position)
     .forEach(pos => {
@@ -23,8 +24,8 @@ export function transfrom(context: Context, from: string, target: string[]) {
 
 
 export function findPositionsWithRule(context: Context, pos: Position, rule: string): Position[] {
-  const { allData, rules } = context
-  return allData().filter(v => v.position.x === pos.x && v.position.y === pos.y)
+  const { rules, scene } = context
+  return allData(scene).filter(v => v.position.x === pos.x && v.position.y === pos.y)
     .filter(v => (rules[v.data.name] || []).includes(rule))
     .map(v => v.position)
 }
@@ -46,4 +47,8 @@ export function allGrid(scene: SceneInterface): ObjectInfo[][] {
     }
   }
   return result
+}
+
+export function allData(scene: SceneInterface): ObjectInfo[] {
+  return allGrid(scene).reduce((a, b) => [...a, ...b], [])
 }
