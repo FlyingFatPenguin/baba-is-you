@@ -15,7 +15,7 @@ export default class GameManager extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props)
     this.state = {
-      levelIndex: 5
+      levelIndex: 7
     }
   }
   getCurrentLevel = () => {

@@ -133,6 +133,7 @@ const NOUN_NAMES = [
   'water',
   'skull',
   'lava',
+  'grass',
 ]
 
 

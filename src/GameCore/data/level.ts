@@ -8,6 +8,7 @@ const flag = { name: 'flag' }
 const water = { name: 'water' }
 const skull = { name: 'skull' }
 const lava = { name: 'lava' }
+const grass = { name: 'grass' }
 
 const text = {
   baba: buildText('baba'),
@@ -26,6 +27,7 @@ const text = {
   lava: buildText('lava'),
   melt: buildText('melt'),
   hot: buildText('hot'),
+  grass: buildText('grass'),
 }
 
 export const level0: GameMap = mapBuilder(17, 17)
@@ -253,6 +255,34 @@ export const level6: GameMap = mapBuilder(24, 14)
   .setPos({ x: 8, y: 12 }, () => [text.you])
   .build()
 
+export const level7: GameMap = mapBuilder(24, 14)
+  .setArea({ x: 5, y: 2 }, { x: 18, y: 11 }, () => [wall])
+  .setArea({ x: 6, y: 3 }, { x: 17, y: 10 }, () => [])
+  .setPos({ x: 7, y: 4 }, () => [text.baba])
+  .setPos({ x: 8, y: 4 }, () => [text.is])
+  .setPos({ x: 9, y: 4 }, () => [text.you])
+  .setPos({ x: 9, y: 7 }, () => [baba])
+  .setPos({ x: 23, y: 6 }, () => [text.grass])
+  .setPos({ x: 23, y: 7 }, () => [text.is])
+  .setPos({ x: 23, y: 8 }, () => [text.stop])
+  .setPos({ x: 16, y: 4 }, () => [flag])
+  .setPos({ x: 6, y: 5 }, () => [grass])
+  .setPos({ x: 10, y: 3 }, () => [grass])
+  .setPos({ x: 6, y: 8 }, () => [grass])
+  .setPos({ x: 7, y: 9 }, () => [grass])
+  .setPos({ x: 10, y: 10 }, () => [grass])
+  .setArea({ x: 12, y: 7 }, { x: 12, y: 9 }, () => [grass])
+  .setPos({ x: 13, y: 5 }, () => [grass])
+  .setPos({ x: 13, y: 10 }, () => [grass])
+  .setPos({ x: 14, y: 6 }, () => [grass])
+  .setPos({ x: 15, y: 7 }, () => [grass])
+  .setPos({ x: 15, y: 9 }, () => [grass])
+  .setPos({ x: 16, y: 6 }, () => [grass])
+  .setPos({ x: 17, y: 7 }, () => [grass])
+  .setPos({ x: 14, y: 8 }, () => [text.flag])
+  .setPos({ x: 16, y: 8 }, () => [text.win])
+  .build()
+
 export const allLevel = [
   level0,
   level1,
@@ -261,4 +291,5 @@ export const allLevel = [
   level4,
   level5,
   level6,
+  level7,
 ]

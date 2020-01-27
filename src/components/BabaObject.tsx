@@ -33,6 +33,7 @@ export default function (props: Props) {
       lava: { color: '#dd6146' },
       melt: { backgroundColor: '#559ad1' },
       hot: { backgroundColor: '#e9994a' },
+      grass: { color: '#a0a640' },
     }
     return <div className='baba-object' style={styleConfig[content]}>
       {content.toUpperCase()}
