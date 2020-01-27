@@ -145,7 +145,7 @@ class BabaIsYou extends React.Component<Props, States> {
   }
   render() {
     const currentScene = this.getCurrentScene()
-    return <BabaScene scene={currentScene} showPos></BabaScene>
+    return <BabaScene scene={currentScene}></BabaScene>
   }
 }
 

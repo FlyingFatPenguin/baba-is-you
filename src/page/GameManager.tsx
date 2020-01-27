@@ -1,6 +1,6 @@
 import * as React from 'react';
 import BabaIsYou from '../components/BabaIsYou';
-import { allLevel } from '../GameCore/data/level';
+import { allLevel as level_0_7 } from '../GameCore/data/level_0_7';
 import Scene from '../GameCore/Model/Scene';
 
 interface Props {
@@ -11,11 +11,15 @@ interface State {
   levelIndex: number
 }
 
+const allLevel = [
+  ...level_0_7,
+]
+
 export default class GameManager extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props)
     this.state = {
-      levelIndex: 7
+      levelIndex: 0
     }
   }
   getCurrentLevel = () => {
