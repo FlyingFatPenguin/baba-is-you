@@ -15,6 +15,7 @@ import {
   meltHotControl
 } from '../GameCore/Control/Control';
 import Scene from '../GameCore/Model/Scene';
+import { addTouchListener, removeTouchListener, TouchType } from '../utils/TouchHelper';
 
 interface Props {
   startGameMap: GameMap,
@@ -49,6 +50,7 @@ class BabaIsYou extends React.Component<Props, States> {
       })
     }
   }
+  //*************** 操作控制部分 **************
   handleKeydown = (ev: KeyboardEvent) => {
     const keyMap: { [name: string]: () => void } = {
       'h': () => this.move(Direction.left),
@@ -89,14 +91,39 @@ class BabaIsYou extends React.Component<Props, States> {
       style: { transform: ` translate(-50%, -50%) scale(${scale})` }
     })
   }
+  handleTouch = (type: TouchType) => {
+    switch (type) {
+      case TouchType.left:
+        this.move(Direction.left)
+        break
+      case TouchType.right:
+        this.move(Direction.right)
+        break
+      case TouchType.up:
+        this.move(Direction.up)
+        break
+      case TouchType.down:
+        this.move(Direction.down)
+        break
+      case TouchType.clockwise:
+        this.undo()
+        break
+      case TouchType.anticlockwise:
+        this.restart()
+        break
+    }
+  }
+
   componentDidMount() {
     this.handleResize()
     window.addEventListener('keydown', this.handleKeydown)
     window.addEventListener('resize', this.handleResize)
+    addTouchListener(this.handleTouch)
   }
   componentWillUnmount() {
     window.removeEventListener('keydown', this.handleKeydown)
     window.removeEventListener('resize', this.handleResize)
+    removeTouchListener()
   }
   // 移动命令
   move = (direction: Direction) => {
@@ -109,11 +136,6 @@ class BabaIsYou extends React.Component<Props, States> {
     const winControl = winBuilder(() => {
       isWin = true
     })
-    // 记录当前是否失败
-    // let isDefeat = false
-    // const defeatControl = defeatControlBuilder(() => {
-    //   isDefeat = true
-    // })
     const control = unionControl(
       youCanMove,
       checkTheBound,
@@ -129,7 +151,6 @@ class BabaIsYou extends React.Component<Props, States> {
     this.recordHistory({
       scene: newScene,
       isWin,
-      // isDefeat,
     })
   }
 
