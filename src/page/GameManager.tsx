@@ -2,6 +2,7 @@ import * as React from 'react';
 import BabaIsYou from '../components/BabaIsYou';
 import { allLevel as level_0_7 } from '../GameCore/data/level_0_7';
 import '../css/GameManager.css'
+import END from '../components/END';
 
 interface Props {
 
@@ -54,15 +55,15 @@ export default class GameManager extends React.Component<Props, State> {
     const currentLevel = this.getCurrentLevel()
     const showWinWord = this.state.showWinWord
     const gameCoreStyle = this.state.gameCoreStyle
-    if (currentLevel) {
-      return <div>
-        <div className='game-core' style={gameCoreStyle}>
-          <BabaIsYou startGameMap={currentLevel} onWin={this.win}></BabaIsYou>
-        </div>
-        {showWinWord && <span className='win-word'>Congratulations</span>}
+    return <div>
+      <div className='game-core' style={gameCoreStyle}>
+        {
+          currentLevel ?
+            <BabaIsYou startGameMap={currentLevel} onWin={this.win}></BabaIsYou> :
+            <END></END>
+        }
       </div>
-    } else {
-      return <h1>Congratulations</h1>
-    }
+      {showWinWord && <span className='win-word'>Congratulations</span>}
+    </div>
   }
 }

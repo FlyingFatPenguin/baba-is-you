@@ -1,0 +1,15 @@
+div.end-page {
+  text-align: center;
+  color: white;
+  white-space: nowrap;
+  padding: 20vh;
+}
+
+div.end-page h1{
+  font-size: 10rem;
+  text-shadow: 0.05em 0.05em 0.05em gray;
+}
+
+div.end-page p{
+  font-size: 3rem;
+}
