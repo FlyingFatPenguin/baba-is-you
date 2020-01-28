@@ -28,15 +28,18 @@ interface HistoryMoment {
 }
 
 interface States {
-  history: HistoryMoment[]
+  history: HistoryMoment[],
+  style?: React.CSSProperties,
 }
 
 class BabaIsYou extends React.Component<Props, States> {
+  myRef: React.RefObject<HTMLDivElement>;
   constructor(props: Props) {
     super(props)
     this.state = {
       history: [{ scene: new Scene(this.props.startGameMap) }]
     }
+    this.myRef = React.createRef()
   }
   componentDidUpdate(prevProps: Props) {
     if (this.props.startGameMap !== prevProps.startGameMap) {
@@ -63,12 +66,37 @@ class BabaIsYou extends React.Component<Props, States> {
     const method = keyMap[key]
     method && method()
   }
+  handleResize = () => {
+    const current = this.myRef.current
+    if (!current) {
+      return
+    }
+    // 整个窗口的尺寸
+    const { clientHeight, clientWidth } = document.body
+    // 当前元素的尺寸
+    const sceneHeight = current.clientHeight
+    const sceneWidth = current.clientWidth
+    // 希望当前元素占据整个窗口的比例
+    const K = 0.95
 
+    // 如果想要达到目标比例, 对长和宽理论应该进行的缩放
+    const kH = K * clientHeight / sceneHeight
+    const kW = K * clientWidth / sceneWidth
+
+    // 取大会导致超出屏幕
+    const scale = Math.min(kH, kW)
+    this.setState({
+      style: { transform: ` translate(-50%, -50%) scale(${scale})` }
+    })
+  }
   componentDidMount() {
+    this.handleResize()
     window.addEventListener('keydown', this.handleKeydown)
+    window.addEventListener('resize', this.handleResize)
   }
   componentWillUnmount() {
     window.removeEventListener('keydown', this.handleKeydown)
+    window.removeEventListener('resize', this.handleResize)
   }
   // 移动命令
   move = (direction: Direction) => {
@@ -125,7 +153,7 @@ class BabaIsYou extends React.Component<Props, States> {
     this.setState(st => {
       const history = st.history;
       if (history.length === 1) {
-        return
+        return { history }
       }
       history.pop()
       return { history }
@@ -147,7 +175,8 @@ class BabaIsYou extends React.Component<Props, States> {
   }
   render() {
     const currentScene = this.getCurrentScene()
-    return <BabaScene scene={currentScene}></BabaScene>
+    const style = this.state.style
+    return <BabaScene scene={currentScene} style={style} ref={this.myRef}></BabaScene>
   }
 }
 
