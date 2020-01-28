@@ -25,7 +25,7 @@ export function transfrom(context: Context, from: string, target: string[]) {
 
 export function findPositionsWithRule(context: Context, pos: Position, rule: string): Position[] {
   const { rules, scene } = context
-  return allData(scene).filter(v => v.position.x === pos.x && v.position.y === pos.y)
+  return gridObjInfos(scene, pos)
     .filter(v => (rules[v.data.name] || []).includes(rule))
     .map(v => v.position)
 }
@@ -51,4 +51,8 @@ export function allGrid(scene: SceneInterface): ObjectInfo[][] {
 
 export function allData(scene: SceneInterface): ObjectInfo[] {
   return allGrid(scene).reduce((a, b) => [...a, ...b], [])
+}
+
+function gridObjInfos(scene: SceneInterface, pos: Position) {
+  return scene.getGrid(pos.x, pos.y).map((obj, i) => ({ data: obj, position: { x: pos.x, y: pos.y, z: i } }))
 }

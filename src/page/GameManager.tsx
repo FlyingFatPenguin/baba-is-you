@@ -1,7 +1,6 @@
 import * as React from 'react';
 import BabaIsYou from '../components/BabaIsYou';
 import { allLevel as level_0_7 } from '../GameCore/data/level_0_7';
-import Scene from '../GameCore/Model/Scene';
 import '../css/GameManager.css'
 
 interface Props {
