@@ -42,13 +42,13 @@ class BabaIsYou extends React.Component<Props, States> {
     }
     this.myRef = React.createRef()
   }
-  componentDidUpdate(prevProps: Props) {
-    if (this.props.startGameMap !== prevProps.startGameMap) {
-      console.log('update')
+  componentWillReceiveProps(nextProp: Props) {
+    if (this.props.startGameMap !== nextProp.startGameMap) {
       this.setState({
-        history: [{ scene: new Scene(this.props.startGameMap) }]
+        history: [{ scene: new Scene(nextProp.startGameMap) }]
       })
     }
+    this.handleResize()
   }
   //*************** 操作控制部分 **************
   handleKeydown = (ev: KeyboardEvent) => {
