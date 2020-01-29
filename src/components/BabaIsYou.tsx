@@ -105,10 +105,10 @@ class BabaIsYou extends React.Component<Props, States> {
       case TouchType.down:
         this.move(Direction.down)
         break
-      case TouchType.clockwise:
+      case TouchType.anticlockwise:
         this.undo()
         break
-      case TouchType.anticlockwise:
+      case TouchType.clockwise:
         this.restart()
         break
     }
