@@ -3,6 +3,7 @@ import BabaIsYou from '../components/BabaIsYou';
 import { allLevel as level_0_7 } from '../GameCore/data/level_0_7';
 import '../css/GameManager.css'
 import END from '../components/END';
+import BabaHelp from '../components/BabaHelp';
 
 interface Props {
 
@@ -56,6 +57,7 @@ export default class GameManager extends React.Component<Props, State> {
     const showWinWord = this.state.showWinWord
     const gameCoreStyle = this.state.gameCoreStyle
     return <div>
+      <BabaHelp></BabaHelp>    
       <div className='game-core' style={gameCoreStyle}>
         {
           currentLevel ?
