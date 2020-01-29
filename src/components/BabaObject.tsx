@@ -22,7 +22,7 @@ export default function (props: Props) {
       you: { backgroundColor: '#e64a68' },
       baba: { color: '#e64a68' },
       stop: { backgroundColor: '#303624' },
-      wall: { color: '#292f3a' },
+      wall: { color: '#808080' },
       is: { color: '#fbfdfb' },
       push: { backgroundColor: '#8f6939' },
       rock: { color: '#8f6939' },
