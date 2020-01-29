@@ -77,9 +77,21 @@ const updateScene = (control: MoveConfig, direction: Direction, callback: (conte
     return control.onMoveCheck(context, pos, direction)
   }
 
+  function isInRemoveList(pos: Position) {
+    return removeList.some(removeInfo =>
+      removeInfo.x === pos.x &&
+      removeInfo.y === pos.y &&
+      removeInfo.z === pos.z)
+  }
+
   function move(pos: Position, direction: Direction) {
     const obj = getGameObject(pos)
     if (control.onMoveCheck(context, pos, direction) && obj) {
+      // 如果已经被移走了, 就不再触发移动事件了
+      // 否则触发两次移动事件, 会导致目标对象被克隆 important!!!
+      if (isInRemoveList(pos)) {
+        return
+      }
       control.onMove(context, pos, direction)
       addObj(getNextPosition(pos, direction), obj)
       removeObj(pos)
