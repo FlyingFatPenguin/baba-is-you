@@ -1,0 +1,25 @@
+div.drop-down {
+  width: 5vw;
+  position: fixed;
+  top:10px;
+  left: 10px;
+  z-index: 1;
+}
+
+div.drop-down img {
+  max-width: 100%;
+}
+
+div.drop-down div {
+  display: none;
+}
+
+div.drop-down:hover div {
+  display: block;
+  position: fixed;
+
+  background-color: black;
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+}

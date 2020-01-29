@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { SceneInterface, Direction } from '../GameCore/interface/Interface';
+import { SceneInterface, Direction, GameMap } from '../GameCore/interface/Interface';
 import BabaScene from './BabaScene';
 import { moveAll } from '../GameCore/Control/move';
 import {
@@ -11,11 +11,14 @@ import {
   winBuilder,
   transformControl,
   sinkControl,
-  defeatControlBuilder
+  defeatControl,
+  meltHotControl
 } from '../GameCore/Control/Control';
+import Scene from '../GameCore/Model/Scene';
+import { addTouchListener, removeTouchListener, TouchType } from '../utils/TouchHelper';
 
 interface Props {
-  startScene: SceneInterface,
+  startGameMap: GameMap,
   onWin: () => void
 }
 
@@ -26,23 +29,28 @@ interface HistoryMoment {
 }
 
 interface States {
-  history: HistoryMoment[]
+  history: HistoryMoment[],
+  style?: React.CSSProperties,
 }
 
 class BabaIsYou extends React.Component<Props, States> {
+  myRef: React.RefObject<HTMLDivElement>;
   constructor(props: Props) {
     super(props)
     this.state = {
-      history: [{ scene: this.props.startScene }]
+      history: [{ scene: new Scene(this.props.startGameMap) }]
     }
+    this.myRef = React.createRef()
   }
-  componentDidUpdate(prevProps: Props) {
-    if (this.props.startScene !== prevProps.startScene) {
+  componentWillReceiveProps(nextProp: Props) {
+    if (this.props.startGameMap !== nextProp.startGameMap) {
       this.setState({
-        history: [{ scene: this.props.startScene }]
+        history: [{ scene: new Scene(nextProp.startGameMap) }]
       })
     }
+    this.handleResize()
   }
+  //*************** 操作控制部分 **************
   handleKeydown = (ev: KeyboardEvent) => {
     const keyMap: { [name: string]: () => void } = {
       'h': () => this.move(Direction.left),
@@ -60,12 +68,62 @@ class BabaIsYou extends React.Component<Props, States> {
     const method = keyMap[key]
     method && method()
   }
+  handleResize = () => {
+    const current = this.myRef.current
+    if (!current) {
+      return
+    }
+    // 整个窗口的尺寸
+    const { clientHeight, clientWidth } = document.body
+    // 当前元素的尺寸
+    const sceneHeight = current.clientHeight
+    const sceneWidth = current.clientWidth
+    // 希望当前元素占据整个窗口的比例
+    const K = 0.95
+
+    // 如果想要达到目标比例, 对长和宽理论应该进行的缩放
+    const kH = K * clientHeight / sceneHeight
+    const kW = K * clientWidth / sceneWidth
+
+    // 取大会导致超出屏幕
+    const scale = Math.min(kH, kW)
+    this.setState({
+      style: { transform: ` translate(-50%, -50%) scale(${scale})` }
+    })
+  }
+  handleTouch = (type: TouchType) => {
+    switch (type) {
+      case TouchType.left:
+        this.move(Direction.left)
+        break
+      case TouchType.right:
+        this.move(Direction.right)
+        break
+      case TouchType.up:
+        this.move(Direction.up)
+        break
+      case TouchType.down:
+        this.move(Direction.down)
+        break
+      case TouchType.anticlockwise:
+        this.undo()
+        break
+      case TouchType.clockwise:
+        this.restart()
+        break
+    }
+  }
 
   componentDidMount() {
+    this.handleResize()
     window.addEventListener('keydown', this.handleKeydown)
+    window.addEventListener('resize', this.handleResize)
+    addTouchListener(this.handleTouch)
   }
   componentWillUnmount() {
     window.removeEventListener('keydown', this.handleKeydown)
+    window.removeEventListener('resize', this.handleResize)
+    removeTouchListener()
   }
   // 移动命令
   move = (direction: Direction) => {
@@ -78,11 +136,6 @@ class BabaIsYou extends React.Component<Props, States> {
     const winControl = winBuilder(() => {
       isWin = true
     })
-    // 记录当前是否失败
-    let isDefeat = false
-    const defeatControl = defeatControlBuilder(() => {
-      isDefeat = true
-    })
     const control = unionControl(
       youCanMove,
       checkTheBound,
@@ -92,12 +145,12 @@ class BabaIsYou extends React.Component<Props, States> {
       transformControl,
       sinkControl,
       defeatControl,
+      meltHotControl,
     )
     const newScene = moveAll(currentScene, control, direction)
     this.recordHistory({
       scene: newScene,
       isWin,
-      isDefeat,
     })
   }
 
@@ -121,7 +174,7 @@ class BabaIsYou extends React.Component<Props, States> {
     this.setState(st => {
       const history = st.history;
       if (history.length === 1) {
-        return
+        return { history }
       }
       history.pop()
       return { history }
@@ -143,7 +196,8 @@ class BabaIsYou extends React.Component<Props, States> {
   }
   render() {
     const currentScene = this.getCurrentScene()
-    return <BabaScene scene={currentScene} showPos></BabaScene>
+    const style = this.state.style
+    return <BabaScene scene={currentScene} style={style} ref={this.myRef}></BabaScene>
   }
 }
 

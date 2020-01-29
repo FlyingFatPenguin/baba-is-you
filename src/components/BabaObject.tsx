@@ -22,7 +22,7 @@ export default function (props: Props) {
       you: { backgroundColor: '#e64a68' },
       baba: { color: '#e64a68' },
       stop: { backgroundColor: '#303624' },
-      wall: { color: '#292f3a' },
+      wall: { color: '#808080' },
       is: { color: '#fbfdfb' },
       push: { backgroundColor: '#8f6939' },
       rock: { color: '#8f6939' },
@@ -30,9 +30,13 @@ export default function (props: Props) {
       sink: { backgroundColor: '#5899d2' },
       skull: { color: '#763125' },
       defeat: { backgroundColor: '#763125' },
+      lava: { color: '#dd6146' },
+      melt: { backgroundColor: '#559ad1' },
+      hot: { backgroundColor: '#e9994a' },
+      grass: { color: '#a0a640' },
     }
     return <div className='baba-object' style={styleConfig[content]}>
-      {content}
+      {content.toUpperCase()}
     </div>
   } else {
     return <BabaImg name={name} />
