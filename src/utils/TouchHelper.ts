@@ -58,7 +58,7 @@ function call(type: TouchType) {
 }
 
 function handle(path: Vec[]) {
-  if (path.length < 4) {
+  if (path.length < 2) {
     return
   }
   const first = path[0]
@@ -69,7 +69,7 @@ function handle(path: Vec[]) {
   const step2 = vMinus(last, center)
 
   // 判断夹角是否大于 90 (点积)
-  if (add(...vMult(step1, step2)) > 0) {
+  if (add(...vMult(step1, step2)) >= 0) {
     // console.log('移动')
     const [offsetX, offsetY] = vMinus(last, first)
     if (abs(offsetX) > abs(offsetY)) {
