@@ -124,9 +124,25 @@ export const lake4: GameMap = mapBuilder(24, 14)
   .setPos({ x: 22, y: 1 }, () => [objects.algae])
   .build()
 
+export const lake5: GameMap = mapBuilder(15, 8)
+  .setLine({ x: 4, y: 2 }, [[text.baba], [text.is], [text.you]])
+  .setLine({ x: 4, y: 5 }, [[text.flag], [text.is], [text.win]])
+  .setArea({ x: 9, y: 2 }, { x: 14, y: 6 }, () => [objects.wall])
+  .setArea({ x: 10, y: 3 }, { x: 12, y: 5 }, () => [])
+  .setLine({ x: 14, y: 3 }, [[text.wall], [text.is], [text.stop]], true)
+  .setPos({ x: 1, y: 4 }, () => [objects.baba])
+  .setPos({ x: 11, y: 4 }, () => [objects.flag])
+  .setPos({ x: 1, y: 0 }, () => [objects.algae])
+  .setPos({ x: 0, y: 1 }, () => [objects.algae])
+  .setPos({ x: 2, y: 7 }, () => [objects.algae])
+  .setPos({ x: 12, y: 7 }, () => [objects.algae])
+  .setPos({ x: 13, y: 0 }, () => [objects.algae])
+  .build()
+
 export const allLevel: LevelInfo[] = [
   { gameMap: lake1, levelName: 'Icy waters' },
   { gameMap: lake2, levelName: 'Turns' },
   { gameMap: lake3, levelName: 'Affection' },
   { gameMap: lake4, levelName: 'Pillar yard' },
+  { gameMap: lake5, levelName: 'Brick wall' }
 ]
