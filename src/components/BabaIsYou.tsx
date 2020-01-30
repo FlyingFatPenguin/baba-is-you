@@ -31,24 +31,33 @@ interface HistoryMoment {
 interface States {
   history: HistoryMoment[],
   style?: React.CSSProperties,
+  startGameMap: GameMap,
 }
 
 class BabaIsYou extends React.Component<Props, States> {
   myRef: React.RefObject<HTMLDivElement>;
   constructor(props: Props) {
     super(props)
+    const startGameMap = this.props.startGameMap
     this.state = {
-      history: [{ scene: new Scene(this.props.startGameMap) }]
+      history: [{ scene: new Scene(startGameMap) }],
+      startGameMap,
     }
     this.myRef = React.createRef()
+    setTimeout(this.handleResize, 0)
   }
-  componentWillReceiveProps(nextProp: Props) {
-    if (this.props.startGameMap !== nextProp.startGameMap) {
-      this.setState({
-        history: [{ scene: new Scene(nextProp.startGameMap) }]
-      })
+  propsUpdate = () => {
+    const lastMap = this.state.startGameMap
+    const currentMap = this.props.startGameMap
+    if (currentMap !== lastMap) {
+      setTimeout(() => {
+        this.setState({
+          history: [{ scene: new Scene(currentMap) }],
+          startGameMap: currentMap,
+        })
+        this.handleResize()
+      }, 0)
     }
-    this.handleResize()
   }
   //*************** 操作控制部分 **************
   handleKeydown = (ev: KeyboardEvent) => {
@@ -115,7 +124,6 @@ class BabaIsYou extends React.Component<Props, States> {
   }
 
   componentDidMount() {
-    this.handleResize()
     window.addEventListener('keydown', this.handleKeydown)
     window.addEventListener('resize', this.handleResize)
     addTouchListener(this.handleTouch)
@@ -195,6 +203,7 @@ class BabaIsYou extends React.Component<Props, States> {
     return this.getCurrentHistoryMoment().scene
   }
   render() {
+    this.propsUpdate()
     const currentScene = this.getCurrentScene()
     const style = this.state.style
     return <BabaScene scene={currentScene} style={style} ref={this.myRef}></BabaScene>

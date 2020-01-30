@@ -35,7 +35,7 @@ export default class GameManager extends React.Component<Props, State> {
       maxLevelIndex: 0,
     }
   }
-  componentWillMount() {
+  componentDidMount() {
     const { maxLevelIndex, currentLevelIndex } = this.load()
     this.setCurrentLevel(currentLevelIndex)
     this.setMaxLevel(maxLevelIndex)
