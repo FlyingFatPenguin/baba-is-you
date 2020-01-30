@@ -1,4 +1,4 @@
-import { GameMap } from "../interface/Interface";
+import { GameMap, LevelInfo } from "../interface/Interface";
 import { buildText, mapBuilder } from "./MapHelper";
 
 const wall = { name: 'wall' }
@@ -283,13 +283,13 @@ export const level7: GameMap = mapBuilder(24, 14)
   .setPos({ x: 16, y: 8 }, () => [text.win])
   .build()
 
-export const allLevel = [
-  level0,
-  level1,
-  level2,
-  level3,
-  level4,
-  level5,
-  level6,
-  level7,
+export const allLevel: LevelInfo[] = [
+  { gameMap: level0, levelName: 'Baba is you.' },
+  { gameMap: level1, levelName: 'Where do I go?' },
+  { gameMap: level2, levelName: 'Now what is this' },
+  { gameMap: level3, levelName: 'Out of reach' },
+  { gameMap: level4, levelName: 'Still out of reach' },
+  { gameMap: level5, levelName: 'Volcano' },
+  { gameMap: level6, levelName: 'Off limits' },
+  { gameMap: level7, levelName: 'Grass yard' },
 ]

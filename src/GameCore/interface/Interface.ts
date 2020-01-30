@@ -62,3 +62,9 @@ export type AddInfo = { pos: Position, obj: GameObjectInterface }
 
 
 export type GameMap = GameObjectInterface[][][]
+
+export interface LevelInfo {
+  levelName: string
+  gameMap: GameMap
+  unlock?: boolean
+}
