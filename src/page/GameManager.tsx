@@ -44,11 +44,13 @@ export default class GameManager extends React.Component<Props, State> {
     this.setState(() => ({
       levelIndex,
     }))
+    saveData(CURRENT_LEVEL, levelIndex.toString())
   }
   setMaxLevel = (maxLevelIndex: number) => {
     this.setState(() => ({
       maxLevelIndex
     }))
+    saveData(MAX_LEVEL, maxLevelIndex.toString())
   }
   getCurrentLevel = () => {
     const levelInfo = allLevel[this.state.levelIndex]
@@ -71,15 +73,10 @@ export default class GameManager extends React.Component<Props, State> {
     }, 3000)
   }
   nextLevel = () => {
-    this.setState(st => ({
-      levelIndex: st.levelIndex + 1,
-      maxLevelIndex: Math.max(st.levelIndex + 1, st.maxLevelIndex)
-    }))
-    this.save()
-  }
-  save = () => {
-    saveData(MAX_LEVEL, this.state.maxLevelIndex.toString())
-    saveData(CURRENT_LEVEL, this.state.levelIndex.toString())
+    const nextIndex = this.state.levelIndex + 1
+    const maxIndex = this.state.maxLevelIndex
+    this.setCurrentLevel(nextIndex)
+    this.setMaxLevel(Math.max(nextIndex, maxIndex))
   }
   load = () => {
     return {
