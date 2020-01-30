@@ -93,8 +93,40 @@ export const lake3: GameMap = mapBuilder(24, 14)
   .setPos({ x: 12, y: 10 }, () => [{ ...objects.keke, direction: Direction.down }])
   .build()
 
+export const lake4: GameMap = mapBuilder(24, 14)
+  .setLine({ x: 0, y: 0 }, [[text.flag], [text.is], [text.win]])
+  .setLine({ x: 5, y: 2 }, [[text.pillar], [text.is], [text.push]])
+  .setLine({ x: 0, y: 6 }, [[text.wall], [text.is], [text.stop]], true)
+  .setLine({ x: 5, y: 12 }, [[text.baba], [text.is], [text.you]])
+  .setLine({ x: 21, y: 13 }, [[text.star], [text.is], [text.defeat]])
+  .setPos({ x: 1, y: 1 }, () => [objects.algae])
+  .setArea({ x: 4, y: 5 }, { x: 8, y: 9 }, () => [objects.wall])
+  .setArea({ x: 5, y: 6 }, { x: 7, y: 8 }, () => [])
+  .setPos({ x: 6, y: 7 }, () => [objects.baba])
+  .setArea({ x: 15, y: 5 }, { x: 19, y: 9 }, () => [objects.star])
+  .setArea({ x: 16, y: 6 }, { x: 18, y: 8 }, () => [])
+  .setPos({ x: 17, y: 7 }, () => [objects.flag])
+  .setPos({ x: 10, y: 2 }, () => [objects.pillar])
+  .setPos({ x: 12, y: 3 }, () => [objects.pillar])
+  .setPos({ x: 11, y: 11 }, () => [objects.pillar])
+  .setPos({ x: 17, y: 12 }, () => [objects.pillar])
+  .setPos({ x: 8, y: 7 }, () => [objects.pillar])
+  .setPos({ x: 18, y: 1 }, () => [objects.pillar])
+  .setPos({ x: 1, y: 11 }, () => [objects.algae])
+  .setPos({ x: 10, y: 8 }, () => [objects.algae])
+  .setPos({ x: 14, y: 13 }, () => [objects.algae])
+  .setPos({ x: 15, y: 12 }, () => [objects.algae])
+  .setPos({ x: 19, y: 12 }, () => [objects.algae])
+  .setPos({ x: 20, y: 8 }, () => [objects.algae])
+  .setPos({ x: 16, y: 1 }, () => [objects.algae])
+  .setPos({ x: 17, y: 2 }, () => [objects.algae])
+  .setPos({ x: 20, y: 3 }, () => [objects.algae])
+  .setPos({ x: 22, y: 1 }, () => [objects.algae])
+  .build()
+
 export const allLevel: LevelInfo[] = [
   { gameMap: lake1, levelName: 'Icy waters' },
   { gameMap: lake2, levelName: 'Turns' },
   { gameMap: lake3, levelName: 'Affection' },
+  { gameMap: lake4, levelName: 'Pillar yard' },
 ]

@@ -43,6 +43,7 @@ export default function (props: Props) {
       move: { backgroundColor: '#759e37' },
       keke: { color: '#ed9900' },
       // keke: { color: '#ca6a96' },
+      pillar: { color: '#516d8e' },
     }
     return <div className='baba-object' style={styleConfig[content]}>
       {content.toUpperCase()}

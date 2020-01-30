@@ -79,6 +79,7 @@ export const objects = {
   algae: buildObject('algae'),
   love: buildObject('love'),
   keke: buildObject('keke'),
+  pillar: buildObject('pillar'),
 }
 
 export const text = {
@@ -107,4 +108,5 @@ export const text = {
   love: buildText('love'),
   keke: buildText('keke'),
   move: buildText('move'),
+  pillar: buildText('pillar'),
 }

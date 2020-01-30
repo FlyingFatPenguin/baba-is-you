@@ -82,7 +82,7 @@ export default class GameManager extends React.Component<Props, State> {
   }
   load = () => {
     return {
-      maxLevelIndex: parseInt(getData(MAX_LEVEL), 10) || 0,
+      maxLevelIndex: Infinity,
       currentLevelIndex: parseInt(getData(CURRENT_LEVEL), 10) || 0,
     }
   }
