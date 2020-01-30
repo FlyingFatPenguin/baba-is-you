@@ -196,14 +196,13 @@ export const meltHotControl: Control = {
 export const moveControl: Control = {
   ...defaultControl,
   onStart(context: Context) {
-    const { scene, move, rules } = context
+    const { scene, move, rules, moveCheck } = context
     allData(scene).filter(havaProp(rules, 'move'))
       .map(v => (console.log(v), v))
       .forEach(v => {
         const direction = v.data.direction
         const pos = v.position
-        const nextPos = getNextPosition(pos, direction)
-        if (isOut(scene, nextPos)) {
+        if (!moveCheck(pos, direction)) {
           move(pos, negativeDirection(direction))
         } else {
           move(pos, direction)
