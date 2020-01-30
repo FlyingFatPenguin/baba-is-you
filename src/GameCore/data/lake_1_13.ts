@@ -49,6 +49,40 @@ export const lake1: GameMap = mapBuilder(28, 16)
   .setLine({ x: 25, y: 0 }, [[text.jelly], [text.is], [text.sink]])
   .build()
 
+export const lake2: GameMap = mapBuilder(28, 16)
+  .setArea({ x: 4, y: 3 }, { x: 8, y: 9 }, () => [objects.wall])
+  .setArea({ x: 5, y: 2 }, { x: 20, y: 12 }, () => [objects.wall])
+  .setArea({ x: 9, y: 3 }, { x: 19, y: 11 }, () => [])
+  .setArea({ x: 5, y: 4 }, { x: 7, y: 8 }, () => [])
+  .setArea({ x: 8, y: 5 }, { x: 10, y: 7 }, () => [objects.wall])
+  .setArea({ x: 8, y: 6 }, { x: 10, y: 6 }, () => [])
+  .setArea({ x: 21, y: 6 }, { x: 25, y: 10 }, () => [objects.wall])
+  .setArea({ x: 20, y: 7 }, { x: 22, y: 7 }, () => [])
+  .setArea({ x: 22, y: 8 }, { x: 24, y: 8 }, () => [])
+  .setArea({ x: 24, y: 7 }, { x: 24, y: 9 }, () => [])
+  .setPos({ x: 22, y: 9 }, () => [])
+  .setPos({ x: 2, y: 6 }, () => [objects.crab])
+  .setPos({ x: 6, y: 6 }, () => [text.crab])
+  .setLine({ x: 5, y: 2 }, [[text.skull], [text.is], [text.defeat]])
+  .setLine({ x: 6, y: 9 }, [[text.baba], [text.is], [text.you]], true)
+  .setPos({ x: 23, y: 8 }, () => [objects.baba])
+  .setPos({ x: 21, y: 7 }, () => [objects.rock])
+  .setPos({ x: 3, y: 11 }, () => [objects.flag])
+  .setPos({ x: 8, y: 6 }, () => [objects.skull])
+  .setPos({ x: 10, y: 6 }, () => [objects.star])
+  .setLine({ x: 2, y: 13 }, [[text.flag], [text.is], [text.win]])
+  .setLine({ x: 21, y: 5 }, [[text.wall], [text.is], [text.stop]])
+  .setLine({ x: 13, y: 5 }, [[text.star], [text.is], [text.sink]])
+  .setLine({ x: 13, y: 7 }, [[text.rock], [text.is], [text.push]])
+  .setPos({ x: 13, y: 9 }, () => [objects.rock])
+  .setPos({ x: 15, y: 9 }, () => [text.and])
+  .build()
+
+// export const lake3: GameMap = mapBuilder(24, 14)
+  // .build()
+
 export const allLevel: LevelInfo[] = [
-  { gameMap: lake1, levelName: 'Icy waters' }
+  { gameMap: lake1, levelName: 'Icy waters' },
+  { gameMap: lake2, levelName: 'Turns' },
+  // { gameMap: lake3, levelName: 'Affection' },
 ]

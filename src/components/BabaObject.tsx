@@ -36,6 +36,8 @@ export default function (props: Props) {
       grass: { color: '#a0a640' },
       and: { color: '#fbfdfb' },
       jelly: { color: '#6287c3' },
+      crab: { color: '#723952' },
+      star: { color: '#cb9e36' },
     }
     return <div className='baba-object' style={styleConfig[content]}>
       {content.toUpperCase()}

@@ -66,6 +66,8 @@ export const objects = {
   grass: { name: 'grass' },
   ice: { name: 'ice' },
   jelly: { name: 'jelly' },
+  crab: { name: 'crab' },
+  star: { name: 'star' },
 }
 
 export const text = {
@@ -88,4 +90,6 @@ export const text = {
   grass: buildText('grass'),
   and: buildText('and'),
   jelly: buildText('jelly'),
+  crab: buildText('crab'),
+  star: buildText('star'),
 }
