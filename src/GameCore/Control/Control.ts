@@ -14,6 +14,7 @@ import {
   findPositionsWithRule,
   allData
 } from "./ControlHelper";
+import { objects } from "../data/MapHelper";
 
 
 export function unionControl(...args: Control[]): Control {
@@ -125,16 +126,7 @@ export function winBuilder(callback: () => void): Control {
 // function ruleNameWithProp(rules: Rules, prop: string) {
 //   return Object.keys(rules).filter(name => rules[name].includes(prop))
 // }
-const NOUN_NAMES = [
-  'baba',
-  'flag',
-  'wall',
-  'rock',
-  'water',
-  'skull',
-  'lava',
-  'grass',
-]
+const NOUN_NAMES = Object.keys(objects)
 
 
 export const transformControl: Control = {
