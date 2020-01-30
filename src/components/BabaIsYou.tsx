@@ -71,6 +71,7 @@ class BabaIsYou extends React.Component<Props, States> {
       'ArrowDown': () => this.move(Direction.down),
       'ArrowUp': () => this.move(Direction.up),
       'ArrowRight': () => this.move(Direction.right),
+      ' ': () => this.move(Direction.wait),
       'u': this.undo,
       'r': this.restart,
     }
@@ -120,6 +121,9 @@ class BabaIsYou extends React.Component<Props, States> {
         break
       case TouchType.clockwise:
         this.restart()
+        break
+      case TouchType.doubleClick:
+        this.move(Direction.wait)
         break
     }
   }

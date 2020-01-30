@@ -198,7 +198,6 @@ export const moveControl: Control = {
   onStart(context: Context) {
     const { scene, move, rules, moveCheck } = context
     allData(scene).filter(havaProp(rules, 'move'))
-      .map(v => (console.log(v), v))
       .forEach(v => {
         const direction = v.data.direction
         const pos = v.position
