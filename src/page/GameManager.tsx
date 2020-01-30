@@ -23,7 +23,7 @@ const allLevel = [
 ]
 
 const MAX_LEVEL = 'maxLevel'
-// const CURRENT_LEVEL = 'currentLevel'
+const CURRENT_LEVEL = 'currentLevel'
 
 export default class GameManager extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -36,12 +36,9 @@ export default class GameManager extends React.Component<Props, State> {
     }
   }
   componentWillMount() {
-    const maxLevelString = getData(MAX_LEVEL)
-    if (maxLevelString) {
-      const maxLevel = parseInt(maxLevelString, 10)
-      this.setCurrentLevel(maxLevel)
-      this.setMaxLevel(maxLevel)
-    }
+    const { maxLevelIndex, currentLevelIndex } = this.load()
+    this.setCurrentLevel(currentLevelIndex)
+    this.setMaxLevel(maxLevelIndex)
   }
   setCurrentLevel = (levelIndex: number) => {
     this.setState(() => ({
@@ -82,13 +79,13 @@ export default class GameManager extends React.Component<Props, State> {
   }
   save = () => {
     saveData(MAX_LEVEL, this.state.maxLevelIndex.toString())
-  //   saveData(CURRENT_LEVEL, this.state.levelIndex.toString())
-  // }
-  // load = () => {
-  //   return {
-  //     maxLevelIndex: getData(MAX_LEVEL),
-  //     currentLevelIndex: getData(CURRENT_LEVEL),
-  //   }
+    saveData(CURRENT_LEVEL, this.state.levelIndex.toString())
+  }
+  load = () => {
+    return {
+      maxLevelIndex: parseInt(getData(MAX_LEVEL), 10) || 0,
+      currentLevelIndex: parseInt(getData(CURRENT_LEVEL), 10) || 0,
+    }
   }
   render() {
     const currentLevel = this.getCurrentLevel()
