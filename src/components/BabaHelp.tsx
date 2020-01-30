@@ -7,10 +7,12 @@ interface Props {
 
 export default class BabaHelp extends React.Component<Props> {
   render() {
-    return <DropDown iconName='help' style={{ top: '15px', left: '10px' }}>
+    return <DropDown iconName='help' style={{ top: '15px', left: '10px' ,alignItems:'flex-start'}}>
       <table>
-        <tbody>
+        <thead>
           <tr><td>动作</td><td>键盘</td><td>手势</td></tr>
+        </thead>
+        <tbody>
           <tr><td>向左</td><td> ⬅ </td><td>向左滑动</td></tr>
           <tr><td>向右</td><td> ➡ </td><td>向右滑动</td></tr>
           <tr><td>向上</td><td> ⬆ </td><td>向上滑动</td></tr>
