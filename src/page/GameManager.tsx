@@ -23,6 +23,7 @@ const allLevel = [
 ]
 
 const MAX_LEVEL = 'maxLevel'
+// const CURRENT_LEVEL = 'currentLevel'
 
 export default class GameManager extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -53,7 +54,8 @@ export default class GameManager extends React.Component<Props, State> {
     }))
   }
   getCurrentLevel = () => {
-    return allLevel[this.state.levelIndex].gameMap
+    const levelInfo = allLevel[this.state.levelIndex]
+    return levelInfo && levelInfo.gameMap
   }
   win = () => {
     this.winAnimation()
@@ -80,6 +82,13 @@ export default class GameManager extends React.Component<Props, State> {
   }
   save = () => {
     saveData(MAX_LEVEL, this.state.maxLevelIndex.toString())
+  //   saveData(CURRENT_LEVEL, this.state.levelIndex.toString())
+  // }
+  // load = () => {
+  //   return {
+  //     maxLevelIndex: getData(MAX_LEVEL),
+  //     currentLevelIndex: getData(CURRENT_LEVEL),
+  //   }
   }
   render() {
     const currentLevel = this.getCurrentLevel()
