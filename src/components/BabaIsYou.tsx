@@ -212,7 +212,7 @@ class BabaIsYou extends React.Component<Props, States> {
     this.propsUpdate()
     const currentScene = this.getCurrentScene()
     const style = this.state.style
-    return <BabaScene scene={currentScene} style={style} ref={this.myRef} showPos></BabaScene>
+    return <BabaScene scene={currentScene} style={style} ref={this.myRef}></BabaScene>
   }
 }
 
