@@ -1,9 +1,9 @@
 div.drop-down {
   width: 5vw;
   position: fixed;
-  top:10px;
-  left: 10px;
   z-index: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 div.drop-down img {
@@ -16,10 +16,11 @@ div.drop-down div {
 
 div.drop-down:hover div {
   display: block;
-  position: fixed;
 
   background-color: black;
   color: white;
+  min-width: 15vw;
   padding: 10px;
   border-radius: 10px;
+  white-space: nowrap;
 }
