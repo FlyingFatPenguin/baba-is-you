@@ -79,7 +79,7 @@ export default class GameManager extends React.Component<Props, State> {
     this.save()
   }
   save = () => {
-    saveData(MAX_LEVEL, this.state.levelIndex.toString())
+    saveData(MAX_LEVEL, this.state.maxLevelIndex.toString())
   }
   render() {
     const currentLevel = this.getCurrentLevel()
