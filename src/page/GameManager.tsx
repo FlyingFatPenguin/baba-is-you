@@ -5,6 +5,7 @@ import '../css/GameManager.css'
 import END from '../components/END';
 import BabaHelp from '../components/BabaHelp';
 import { getData, saveData } from '../utils/DataStore';
+import { allLevel as lake_1_13 } from '../GameCore/data/lake_1_13'
 import SelectLevel from '../components/SelectLevel';
 
 interface Props {
@@ -20,6 +21,7 @@ interface State {
 
 const allLevel = [
   ...level_0_7,
+  ...lake_1_13,
 ]
 
 const MAX_LEVEL = 'maxLevel'

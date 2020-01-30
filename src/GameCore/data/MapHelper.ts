@@ -31,6 +31,16 @@ export function mapBuilder(sizeX: number, sizeY: number) {
       }
       return this
     },
+    setLine(start: Pos, data: GridData[], isVertical = false) {
+      const [dx, dy] = isVertical ? [0, 1] : [1, 0]
+      let { x, y } = start
+      for (const grid of data) {
+        this.setPos({ x, y }, () => grid)
+        x += dx
+        y += dy
+      }
+      return this
+    },
     setViewPos(pos: Pos) {
       viewPos = pos
       return this
@@ -45,5 +55,37 @@ export function buildText(content: string) {
   }
 }
 
+export const objects = {
+  wall: { name: 'wall' },
+  rock: { name: 'rock' },
+  baba: { name: 'baba' },
+  flag: { name: 'flag' },
+  water: { name: 'water' },
+  skull: { name: 'skull' },
+  lava: { name: 'lava' },
+  grass: { name: 'grass' },
+  ice: { name: 'ice' },
+  jelly: { name: 'jelly' },
+}
 
-
+export const text = {
+  baba: buildText('baba'),
+  is: buildText('is'),
+  you: buildText('you'),
+  wall: buildText('wall'),
+  stop: buildText('stop'),
+  rock: buildText('rock'),
+  push: buildText('push'),
+  flag: buildText('flag'),
+  win: buildText('win'),
+  water: buildText('water'),
+  sink: buildText('sink'),
+  skull: buildText('skull'),
+  defeat: buildText('defeat'),
+  lava: buildText('lava'),
+  melt: buildText('melt'),
+  hot: buildText('hot'),
+  grass: buildText('grass'),
+  and: buildText('and'),
+  jelly: buildText('jelly'),
+}

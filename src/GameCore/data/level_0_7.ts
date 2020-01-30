@@ -1,34 +1,7 @@
 import { GameMap, LevelInfo } from "../interface/Interface";
-import { buildText, mapBuilder } from "./MapHelper";
+import { mapBuilder, objects, text } from "./MapHelper";
 
-const wall = { name: 'wall' }
-const rock = { name: 'rock' }
-const baba = { name: 'baba' }
-const flag = { name: 'flag' }
-const water = { name: 'water' }
-const skull = { name: 'skull' }
-const lava = { name: 'lava' }
-const grass = { name: 'grass' }
-
-const text = {
-  baba: buildText('baba'),
-  is: buildText('is'),
-  you: buildText('you'),
-  wall: buildText('wall'),
-  stop: buildText('stop'),
-  rock: buildText('rock'),
-  push: buildText('push'),
-  flag: buildText('flag'),
-  win: buildText('win'),
-  water: buildText('water'),
-  sink: buildText('sink'),
-  skull: buildText('skull'),
-  defeat: buildText('defeat'),
-  lava: buildText('lava'),
-  melt: buildText('melt'),
-  hot: buildText('hot'),
-  grass: buildText('grass'),
-}
+const { wall, rock, baba, flag, water, skull, lava, grass } = objects
 
 export const level0: GameMap = mapBuilder(17, 17)
   .setViewPos({ x: 1, y: 3 })
