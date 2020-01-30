@@ -47,7 +47,7 @@ export type GridInterface = GameObjectInterface[]
 export interface GameObjectInterface {
   name: string
   content?: string
-  direction?: Direction,
+  direction: Direction,
 }
 
 export enum Direction {
@@ -55,6 +55,7 @@ export enum Direction {
   right,
   up,
   down,
+  wait,
 }
 
 export type RemoveInfo = Position

@@ -93,7 +93,8 @@ const updateScene = (control: MoveConfig, direction: Direction, callback: (conte
         return
       }
       control.onMove(context, pos, direction)
-      addObj(getNextPosition(pos, direction), obj)
+      // 物体转向到当前的移动方向
+      addObj(getNextPosition(pos, direction), { ...obj, direction })
       removeObj(pos)
     }
   }
@@ -124,5 +125,22 @@ export function getNextPosition(from: Position, direction: Direction): Position 
     case Direction.down:
       copy.y = copy.y + 1
       return copy
+    case Direction.wait:
+      return copy
+  }
+}
+
+export function negativeDirection(direction: Direction) {
+  switch (direction) {
+    case Direction.left:
+      return Direction.right;
+    case Direction.right:
+      return Direction.left;
+    case Direction.up:
+      return Direction.down;
+    case Direction.down:
+      return Direction.up;
+    case Direction.wait:
+      return Direction.wait;
   }
 }

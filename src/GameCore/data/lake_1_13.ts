@@ -1,4 +1,4 @@
-import { LevelInfo, GameMap } from "../interface/Interface";
+import { LevelInfo, GameMap, Direction } from "../interface/Interface";
 import { mapBuilder, text, objects } from "./MapHelper";
 
 export const lake1: GameMap = mapBuilder(28, 16)
@@ -78,11 +78,23 @@ export const lake2: GameMap = mapBuilder(28, 16)
   .setPos({ x: 15, y: 9 }, () => [text.and])
   .build()
 
-// export const lake3: GameMap = mapBuilder(24, 14)
-  // .build()
+export const lake3: GameMap = mapBuilder(24, 14)
+  .setLine({ x: 0, y: 0 }, [[text.algae], [text.is], [text.defeat]])
+  .setLine({ x: 0, y: 11 }, [[text.love], [text.is], [text.win]], true)
+  .setLine({ x: 21, y: 13 }, [[text.baba], [text.is], [text.you]])
+  .setPos({ x: 3, y: 9 }, () => [objects.baba])
+  .setLine({ x: 9, y: 9 }, [[text.love], [text.is], [text.push]])
+  .setLine({ x: 9, y: 5 }, [[text.keke], [text.is], [text.move]])
+  .setArea({ x: 14, y: 5 }, { x: 18, y: 9 }, () => [objects.algae])
+  .setArea({ x: 15, y: 6 }, { x: 17, y: 8 }, () => [])
+  .setPos({ x: 16, y: 7 }, () => [objects.love])
+  .setPos({ x: 6, y: 3 }, () => [{ ...objects.keke, direction: Direction.right }])
+  .setPos({ x: 7, y: 7 }, () => [{ ...objects.keke, direction: Direction.up }])
+  .setPos({ x: 12, y: 10 }, () => [{ ...objects.keke, direction: Direction.down }])
+  .build()
 
 export const allLevel: LevelInfo[] = [
   { gameMap: lake1, levelName: 'Icy waters' },
   { gameMap: lake2, levelName: 'Turns' },
-  // { gameMap: lake3, levelName: 'Affection' },
+  { gameMap: lake3, levelName: 'Affection' },
 ]

@@ -12,7 +12,8 @@ import {
   transformControl,
   sinkControl,
   defeatControl,
-  meltHotControl
+  meltHotControl,
+  moveControl
 } from '../GameCore/Control/Control';
 import Scene from '../GameCore/Model/Scene';
 import { addTouchListener, removeTouchListener, TouchType } from '../utils/TouchHelper';
@@ -154,6 +155,7 @@ class BabaIsYou extends React.Component<Props, States> {
       sinkControl,
       defeatControl,
       meltHotControl,
+      moveControl,
     )
     const newScene = moveAll(currentScene, control, direction)
     this.recordHistory({

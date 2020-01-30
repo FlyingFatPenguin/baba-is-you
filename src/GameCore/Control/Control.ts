@@ -6,13 +6,14 @@ import {
   ObjectInfo,
   Rules,
 } from "../interface/Interface";
-import { getNextPosition } from "./move";
+import { getNextPosition, negativeDirection } from "./move";
 import { intersect } from "../utils/utils";
 import {
   allGrid,
   transfrom,
   findPositionsWithRule,
-  allData
+  allData,
+  isOut
 } from "./ControlHelper";
 import { objects } from "../data/MapHelper";
 
@@ -67,13 +68,7 @@ export const checkTheBound: Control = {
     // 边界位置校验
     const { scene } = context
     const nextPosition = getNextPosition(pos, direction)
-    const { x, y } = nextPosition
-    const { sizeX, sizeY } = scene.getSize()
-    if (x < 0 || y < 0 || x >= sizeX || y >= sizeY) {
-      return false
-    }
-    // 其他
-    return true
+    return !isOut(scene, nextPosition)
   },
 }
 
@@ -195,5 +190,24 @@ export const meltHotControl: Control = {
         meltList.forEach(objInfo => removeObj(objInfo.position))
       }
     })
+  }
+}
+
+export const moveControl: Control = {
+  ...defaultControl,
+  onStart(context: Context) {
+    const { scene, move, rules } = context
+    allData(scene).filter(havaProp(rules, 'move'))
+      .map(v => (console.log(v), v))
+      .forEach(v => {
+        const direction = v.data.direction
+        const pos = v.position
+        const nextPos = getNextPosition(pos, direction)
+        if (isOut(scene, nextPos)) {
+          move(pos, negativeDirection(direction))
+        } else {
+          move(pos, direction)
+        }
+      })
   }
 }

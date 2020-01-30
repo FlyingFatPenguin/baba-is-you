@@ -1,4 +1,4 @@
-import { GameMap } from '../interface/Interface'
+import { GameMap, Direction } from '../interface/Interface'
 import { GameObjectInterface } from '../interface/Interface'
 import { range } from '../utils/utils'
 
@@ -48,26 +48,37 @@ export function mapBuilder(sizeX: number, sizeY: number) {
   }
 }
 
-export function buildText(content: string) {
+export function buildText(content: string): GameObjectInterface {
   return {
     name: 'text',
     content,
+    direction: Direction.wait,
+  }
+}
+
+export function buildObject(name: string): GameObjectInterface {
+  return {
+    name,
+    direction: Direction.wait,
   }
 }
 
 export const objects = {
-  wall: { name: 'wall' },
-  rock: { name: 'rock' },
-  baba: { name: 'baba' },
-  flag: { name: 'flag' },
-  water: { name: 'water' },
-  skull: { name: 'skull' },
-  lava: { name: 'lava' },
-  grass: { name: 'grass' },
-  ice: { name: 'ice' },
-  jelly: { name: 'jelly' },
-  crab: { name: 'crab' },
-  star: { name: 'star' },
+  wall: buildObject('wall'),
+  rock: buildObject('rock'),
+  baba: buildObject('baba'),
+  flag: buildObject('flag'),
+  water: buildObject('water'),
+  skull: buildObject('skull'),
+  lava: buildObject('lava'),
+  grass: buildObject('grass'),
+  ice: buildObject('ice'),
+  jelly: buildObject('jelly'),
+  crab: buildObject('crab'),
+  star: buildObject('star'),
+  algae: buildObject('algae'),
+  love: buildObject('love'),
+  keke: buildObject('keke'),
 }
 
 export const text = {
@@ -92,4 +103,8 @@ export const text = {
   jelly: buildText('jelly'),
   crab: buildText('crab'),
   star: buildText('star'),
+  algae: buildText('algae'),
+  love: buildText('love'),
+  keke: buildText('keke'),
+  move: buildText('move'),
 }
