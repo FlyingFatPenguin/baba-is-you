@@ -6,6 +6,7 @@ export enum TouchType {
   up,
   clockwise,
   anticlockwise,
+  doubleClick,
 }
 type Callback = (type: TouchType) => void
 
@@ -57,8 +58,18 @@ function call(type: TouchType) {
   callbackList.forEach(f => f(type))
 }
 
+let clicked = false;
 function handle(path: Vec[]) {
   if (path.length < 2) {
+    // 尝试进入双击事件
+    if (!clicked) {
+      clicked = true
+      setTimeout(() => {
+        clicked = false
+      }, 600)
+    } else {
+      call(TouchType.doubleClick)
+    }
     return
   }
   const first = path[0]

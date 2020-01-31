@@ -34,6 +34,16 @@ export default function (props: Props) {
       melt: { backgroundColor: '#559ad1' },
       hot: { backgroundColor: '#e9994a' },
       grass: { color: '#a0a640' },
+      and: { color: '#fbfdfb' },
+      jelly: { color: '#6287c3' },
+      crab: { color: '#723952' },
+      star: { color: '#cb9e36' },
+      algae: { color: '#558743' },
+      love: { color: '#fa8af2' },
+      move: { backgroundColor: '#759e37' },
+      keke: { color: '#ed9900' },
+      // keke: { color: '#ca6a96' },
+      pillar: { color: '#516d8e' },
     }
     return <div className='baba-object' style={styleConfig[content]}>
       {content.toUpperCase()}

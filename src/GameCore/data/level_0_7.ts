@@ -1,34 +1,7 @@
-import { GameMap } from "../interface/Interface";
-import { buildText, mapBuilder } from "./MapHelper";
+import { GameMap, LevelInfo } from "../interface/Interface";
+import { mapBuilder, objects, text } from "./MapHelper";
 
-const wall = { name: 'wall' }
-const rock = { name: 'rock' }
-const baba = { name: 'baba' }
-const flag = { name: 'flag' }
-const water = { name: 'water' }
-const skull = { name: 'skull' }
-const lava = { name: 'lava' }
-const grass = { name: 'grass' }
-
-const text = {
-  baba: buildText('baba'),
-  is: buildText('is'),
-  you: buildText('you'),
-  wall: buildText('wall'),
-  stop: buildText('stop'),
-  rock: buildText('rock'),
-  push: buildText('push'),
-  flag: buildText('flag'),
-  win: buildText('win'),
-  water: buildText('water'),
-  sink: buildText('sink'),
-  skull: buildText('skull'),
-  defeat: buildText('defeat'),
-  lava: buildText('lava'),
-  melt: buildText('melt'),
-  hot: buildText('hot'),
-  grass: buildText('grass'),
-}
+const { wall, rock, baba, flag, water, skull, lava, grass } = objects
 
 export const level0: GameMap = mapBuilder(17, 17)
   .setViewPos({ x: 1, y: 3 })
@@ -283,13 +256,13 @@ export const level7: GameMap = mapBuilder(24, 14)
   .setPos({ x: 16, y: 8 }, () => [text.win])
   .build()
 
-export const allLevel = [
-  level0,
-  level1,
-  level2,
-  level3,
-  level4,
-  level5,
-  level6,
-  level7,
+export const allLevel: LevelInfo[] = [
+  { gameMap: level0, levelName: 'Baba is you.' },
+  { gameMap: level1, levelName: 'Where do I go?' },
+  { gameMap: level2, levelName: 'Now what is this' },
+  { gameMap: level3, levelName: 'Out of reach' },
+  { gameMap: level4, levelName: 'Still out of reach' },
+  { gameMap: level5, levelName: 'Volcano' },
+  { gameMap: level6, levelName: 'Off limits' },
+  { gameMap: level7, levelName: 'Grass yard' },
 ]

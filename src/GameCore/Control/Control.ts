@@ -6,14 +6,16 @@ import {
   ObjectInfo,
   Rules,
 } from "../interface/Interface";
-import { getNextPosition } from "./move";
+import { getNextPosition, negativeDirection } from "./move";
 import { intersect } from "../utils/utils";
 import {
   allGrid,
   transfrom,
   findPositionsWithRule,
-  allData
+  allData,
+  isOut
 } from "./ControlHelper";
+import { objects } from "../data/MapHelper";
 
 
 export function unionControl(...args: Control[]): Control {
@@ -66,13 +68,7 @@ export const checkTheBound: Control = {
     // 边界位置校验
     const { scene } = context
     const nextPosition = getNextPosition(pos, direction)
-    const { x, y } = nextPosition
-    const { sizeX, sizeY } = scene.getSize()
-    if (x < 0 || y < 0 || x >= sizeX || y >= sizeY) {
-      return false
-    }
-    // 其他
-    return true
+    return !isOut(scene, nextPosition)
   },
 }
 
@@ -125,16 +121,7 @@ export function winBuilder(callback: () => void): Control {
 // function ruleNameWithProp(rules: Rules, prop: string) {
 //   return Object.keys(rules).filter(name => rules[name].includes(prop))
 // }
-const NOUN_NAMES = [
-  'baba',
-  'flag',
-  'wall',
-  'rock',
-  'water',
-  'skull',
-  'lava',
-  'grass',
-]
+const NOUN_NAMES = Object.keys(objects)
 
 
 export const transformControl: Control = {
@@ -203,5 +190,22 @@ export const meltHotControl: Control = {
         meltList.forEach(objInfo => removeObj(objInfo.position))
       }
     })
+  }
+}
+
+export const moveControl: Control = {
+  ...defaultControl,
+  onStart(context: Context) {
+    const { scene, move, rules, moveCheck } = context
+    allData(scene).filter(havaProp(rules, 'move'))
+      .forEach(v => {
+        const direction = v.data.direction
+        const pos = v.position
+        if (!moveCheck(pos, direction)) {
+          move(pos, negativeDirection(direction))
+        } else {
+          move(pos, direction)
+        }
+      })
   }
 }

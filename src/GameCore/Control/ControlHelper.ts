@@ -15,10 +15,9 @@ export function transfrom(context: Context, from: string, target: string[]) {
   const { addObj, removeObj, scene } = context
   allData(scene)
     .filter(v => v.data.name === from)
-    .map(v => v.position)
-    .forEach(pos => {
+    .forEach(({ position: pos, data }) => {
       removeObj(pos)
-      target.forEach(name => addObj(pos, { name }))
+      target.forEach(name => addObj(pos, { name, direction: data.direction }))
     })
 }
 
@@ -55,4 +54,10 @@ export function allData(scene: SceneInterface): ObjectInfo[] {
 
 function gridObjInfos(scene: SceneInterface, pos: Position) {
   return scene.getGrid(pos.x, pos.y).map((obj, i) => ({ data: obj, position: { x: pos.x, y: pos.y, z: i } }))
+}
+
+export function isOut(scene: SceneInterface, pos: Position) {
+  const { x, y } = pos
+  const { sizeX, sizeY } = scene.getSize()
+  return x < 0 || y < 0 || x >= sizeX || y >= sizeY
 }

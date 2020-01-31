@@ -1,4 +1,4 @@
-import { GameMap } from '../interface/Interface'
+import { GameMap, Direction } from '../interface/Interface'
 import { GameObjectInterface } from '../interface/Interface'
 import { range } from '../utils/utils'
 
@@ -31,6 +31,16 @@ export function mapBuilder(sizeX: number, sizeY: number) {
       }
       return this
     },
+    setLine(start: Pos, data: GridData[], isVertical = false) {
+      const [dx, dy] = isVertical ? [0, 1] : [1, 0]
+      let { x, y } = start
+      for (const grid of data) {
+        this.setPos({ x, y }, () => grid)
+        x += dx
+        y += dy
+      }
+      return this
+    },
     setViewPos(pos: Pos) {
       viewPos = pos
       return this
@@ -38,12 +48,65 @@ export function mapBuilder(sizeX: number, sizeY: number) {
   }
 }
 
-export function buildText(content: string) {
+export function buildText(content: string): GameObjectInterface {
   return {
     name: 'text',
     content,
+    direction: Direction.wait,
   }
 }
 
+export function buildObject(name: string): GameObjectInterface {
+  return {
+    name,
+    direction: Direction.wait,
+  }
+}
 
+export const objects = {
+  wall: buildObject('wall'),
+  rock: buildObject('rock'),
+  baba: buildObject('baba'),
+  flag: buildObject('flag'),
+  water: buildObject('water'),
+  skull: buildObject('skull'),
+  lava: buildObject('lava'),
+  grass: buildObject('grass'),
+  ice: buildObject('ice'),
+  jelly: buildObject('jelly'),
+  crab: buildObject('crab'),
+  star: buildObject('star'),
+  algae: buildObject('algae'),
+  love: buildObject('love'),
+  keke: buildObject('keke'),
+  pillar: buildObject('pillar'),
+}
 
+export const text = {
+  baba: buildText('baba'),
+  is: buildText('is'),
+  you: buildText('you'),
+  wall: buildText('wall'),
+  stop: buildText('stop'),
+  rock: buildText('rock'),
+  push: buildText('push'),
+  flag: buildText('flag'),
+  win: buildText('win'),
+  water: buildText('water'),
+  sink: buildText('sink'),
+  skull: buildText('skull'),
+  defeat: buildText('defeat'),
+  lava: buildText('lava'),
+  melt: buildText('melt'),
+  hot: buildText('hot'),
+  grass: buildText('grass'),
+  and: buildText('and'),
+  jelly: buildText('jelly'),
+  crab: buildText('crab'),
+  star: buildText('star'),
+  algae: buildText('algae'),
+  love: buildText('love'),
+  keke: buildText('keke'),
+  move: buildText('move'),
+  pillar: buildText('pillar'),
+}
