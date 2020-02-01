@@ -36,10 +36,24 @@ interface Props {
 //   }
 // }
 
+interface Pos {
+  x: number
+  y: number
+}
+
+interface MapItem {
+  pos: Pos
+  gridData: GameObjectInterface[]
+}
+
 export default function MapEditor(props: Props) {
   const [sizeX, setSizeX] = React.useState(10)
   const [sizeY, setSizeY] = React.useState(10)
-  const gameMap = mapBuilder(sizeX, sizeY).build()
+  const [mapItems, setMapItems] = React.useState([] as MapItem[])
+  const gameMap = mapItems.reduce((p, v) =>
+    p.setPos(v.pos, () => v.gridData),
+    mapBuilder(sizeX, sizeY))
+    .build()
 
   function changeMapSize(callback: (newValue: number) => void) {
     return function (ev: React.ChangeEvent<HTMLInputElement>) {
@@ -48,8 +62,7 @@ export default function MapEditor(props: Props) {
   }
   async function handleClick(x: number, y: number) {
     const obj = await selectGameObject()
-    console.log(x, y)
-    console.log(obj)
+    setMapItems([...mapItems, { pos: { x, y }, gridData: [obj] }])
   }
 
   async function editGrid(x: number, y: number) {
@@ -68,7 +81,7 @@ export default function MapEditor(props: Props) {
         resolve(obj)
       }
       setModalList([...modalList, inventory])
-    })
+    }) as Promise<GameObjectInterface>
   }
 
   return <div>
