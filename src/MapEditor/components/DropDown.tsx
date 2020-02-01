@@ -1,5 +1,5 @@
 import * as React from 'react';
-import './dropdown.css'
+import '../css/dropdown.css'
 
 interface Props {
   iconName: string

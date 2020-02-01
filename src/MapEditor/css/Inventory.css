@@ -1,0 +1,19 @@
+div.inventory {
+  width: 80vw;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 10px;
+}
+
+div.center {
+  position: fixed;
+  top: 50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+}
+div.inventory div{
+  float: left;
+}
+div.inventory img {
+  max-width: 9vw;
+}
