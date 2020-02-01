@@ -3,6 +3,7 @@ import '../css/dropdown.css'
 
 interface Props {
   iconName: string
+  onClick?: () => void
 }
 
 export default class DropDown extends React.Component<Props> {
@@ -12,11 +13,11 @@ export default class DropDown extends React.Component<Props> {
   render() {
     const name = this.props.iconName
     const children = this.props.children
-    return <div className='dropdown'>
+    return <div className='dropdown' onClick={this.props.onClick}>
       <img src={require('../img/' + name + '.png')} alt="" />
-      <div className='drop-content'>
+      {children && <div className='drop-content'>
         {children}
-      </div>
+      </div>}
     </div>
   }
 }

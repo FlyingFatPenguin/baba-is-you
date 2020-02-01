@@ -7,6 +7,8 @@ import DropDown from '../MapEditor/components/DropDown';
 import GridEditor from '../MapEditor/components/GridEditor';
 import Inventory from '../MapEditor/components/Inventory';
 import { GameObjectInterface } from '../GameCore/interface/Interface';
+import BabaIsYou from '../components/BabaIsYou';
+import BabaImg from '../components/BabaImg';
 
 interface Props {
 
@@ -47,6 +49,7 @@ interface MapItem {
 }
 
 export default function MapEditor(props: Props) {
+  const [isEdit, setIsEdit] = React.useState(true)
   const [sizeX, setSizeX] = React.useState(10)
   const [sizeY, setSizeY] = React.useState(10)
   const [mapItems, setMapItems] = React.useState([] as MapItem[])
@@ -85,8 +88,11 @@ export default function MapEditor(props: Props) {
   }
 
   return <div>
-    <BabaScene showPos scene={new Scene(gameMap)} onClick={handleClick}></BabaScene>
     {modalList}
+    {isEdit ?
+      <BabaScene showPos scene={new Scene(gameMap)} onClick={handleClick}></BabaScene> :
+      <BabaIsYou startGameMap={gameMap} onWin={console.log}></BabaIsYou>
+    }
     <ControlPanel>
       <DropDown iconName='size'>
         <h1>hhh</h1>
@@ -94,7 +100,7 @@ export default function MapEditor(props: Props) {
         <input type="range" max='30' min='6' step='2' value={sizeY} onChange={changeMapSize(setSizeY)} />
       </DropDown>
       <DropDown iconName='grid'></DropDown>
-      <DropDown iconName='add'></DropDown>
+      <DropDown iconName='add' onClick={() => setIsEdit(!isEdit)}></DropDown>
       <DropDown iconName='export'></DropDown>
     </ControlPanel>
   </div>
