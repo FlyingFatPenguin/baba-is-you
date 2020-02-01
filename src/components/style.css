@@ -21,6 +21,7 @@ div.baba-scene>ul {
 
 div.baba-scene>ul>li {
   list-style: none;
+  user-select: none;
 }
 
 div.baba-grid {
