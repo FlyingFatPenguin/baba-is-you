@@ -7,6 +7,7 @@ import DropDown from '../MapEditor/components/DropDown';
 import Inventory from '../MapEditor/components/Inventory';
 import { GameObjectInterface } from '../GameCore/interface/Interface';
 import BabaIsYou from '../components/BabaIsYou';
+import copy from 'copy-to-clipboard'
 
 interface Props {
 
@@ -82,7 +83,8 @@ export default function MapEditor(props: Props) {
     return JSON.stringify(sparseMap)
   }
 
-  function copyMap(){
+  function copyMap() {
+    copy(sparseMapToString({ sizeX, sizeY, mapItems }))
   }
 
   return <div>
@@ -99,8 +101,7 @@ export default function MapEditor(props: Props) {
       </DropDown>
       {/* <DropDown iconName='grid'></DropDown> */}
       <DropDown iconName={isEdit ? 'play' : 'stop'} onClick={() => setIsEdit(!isEdit)}></DropDown>
-      <DropDown iconName='export'>
-        {sparseMapToString({ sizeX, sizeY, mapItems })}
+      <DropDown iconName='export' onClick={copyMap}>
       </DropDown>
     </ControlPanel>
   </div>
