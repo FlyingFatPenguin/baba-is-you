@@ -42,19 +42,21 @@ div.baba-grid>img {
   position: absolute;
 }
 
-div.baba-object {
-  font-size: 1.2rem;
-  border-radius: 5px;
-  /* padding: 10%; */
-  text-align: center;
+div.baba-grid>div.baba-object {
+  position: absolute;
+  top: 0;
+}
+
+div.baba-object img {
   height: 100%;
   width: 100%;
-  /* max-width: 100%; */
+}
+
+div.baba-object div {
+  font-size: 1.2rem;
+  border-radius: 5px;
+  text-align: center;
   word-wrap: break-word;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   font-weight: 500;
-  /* line-height: 2rem; */
+  /* padding: 3px; */
 }

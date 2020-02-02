@@ -4,39 +4,13 @@ import Scene from '../GameCore/Model/Scene';
 import ControlPanel from '../MapEditor/components/ControlPanel';
 import { mapBuilder } from '../GameCore/data/MapHelper';
 import DropDown from '../MapEditor/components/DropDown';
-import GridEditor from '../MapEditor/components/GridEditor';
 import Inventory from '../MapEditor/components/Inventory';
 import { GameObjectInterface } from '../GameCore/interface/Interface';
 import BabaIsYou from '../components/BabaIsYou';
-import BabaImg from '../components/BabaImg';
 
 interface Props {
 
 }
-
-// interface States {
-//   sizeX: number
-//   sizeY: number
-// }
-
-
-// export default class MapEditor extends React.Component<Props, States> {
-//   constructor(props: Props) {
-//     super(props)
-//     this.state = {
-//       sizeX: 10,
-//       sizeY: 10,
-//     }
-//   }
-//   render() {
-//     const { sizeX, sizeY } = this.state
-//     const gameMap = mapBuilder(sizeX, sizeY).build()
-//     return <div>
-//       <BabaScene scene={new Scene(gameMap)} showPos></BabaScene>
-//       <ControlPanel></ControlPanel>
-//     </div>
-//   }
-// }
 
 interface Pos {
   x: number
@@ -75,9 +49,16 @@ export default function MapEditor(props: Props) {
   // ***** 地图弹窗 *****
   const [modalList, setModalList] = React.useState([] as JSX.Element[])
 
+  function clearAllModal() {
+    setModalList([])
+  }
+
   function selectGameObject() {
     return new Promise((resolve) => {
-      if (modalList.length > 0) { return }
+      if (modalList.length > 0) {
+        clearAllModal()
+        return
+      }
       const inventory = <Inventory onClick={handleClick}></Inventory>
       function handleClick(obj: GameObjectInterface) {
         setModalList(modalList.filter(v => v !== inventory))
