@@ -8,6 +8,7 @@ import Inventory from '../MapEditor/components/Inventory';
 import { GameObjectInterface } from '../GameCore/interface/Interface';
 import BabaIsYou from '../components/BabaIsYou';
 import copy from 'copy-to-clipboard'
+import { downloadFile } from '../utils/FileSystem';
 
 interface Props {
 
@@ -84,7 +85,9 @@ export default function MapEditor(props: Props) {
   }
 
   function copyMap() {
-    copy(sparseMapToString({ sizeX, sizeY, mapItems }))
+    const data = sparseMapToString({ sizeX, sizeY, mapItems })
+    // copy()
+    downloadFile(data, '1.json')
   }
 
   return <div>
