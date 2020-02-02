@@ -99,8 +99,8 @@ export default function MapEditor(props: Props) {
         <input type="range" max='30' min='6' step='2' value={sizeX} onChange={changeMapSize(setSizeX)} />
         <input type="range" max='30' min='6' step='2' value={sizeY} onChange={changeMapSize(setSizeY)} />
       </DropDown>
-      <DropDown iconName='grid'></DropDown>
-      <DropDown iconName='add' onClick={() => setIsEdit(!isEdit)}></DropDown>
+      {/* <DropDown iconName='grid'></DropDown> */}
+      <DropDown iconName={isEdit ? 'play' : 'stop'} onClick={() => setIsEdit(!isEdit)}></DropDown>
       <DropDown iconName='export'></DropDown>
     </ControlPanel>
   </div>
