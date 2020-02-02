@@ -4,6 +4,7 @@ div.dropdown {
 
 div.dropdown>img {
   max-height: 8vh;
+  user-select: none;
 }
 
 div.dropdown>img:hover {

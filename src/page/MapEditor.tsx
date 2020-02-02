@@ -22,6 +22,15 @@ interface MapItem {
   gridData: GameObjectInterface[]
 }
 
+/**
+ * 稀疏地图
+ */
+interface SparseMap {
+  sizeX: number
+  sizeY: number
+  mapItems: MapItem[]
+}
+
 export default function MapEditor(props: Props) {
   const [isEdit, setIsEdit] = React.useState(true)
   const [sizeX, setSizeX] = React.useState(10)
@@ -68,6 +77,14 @@ export default function MapEditor(props: Props) {
     }) as Promise<GameObjectInterface>
   }
 
+  // 地图导入导出
+  function sparseMapToString(sparseMap: SparseMap) {
+    return JSON.stringify(sparseMap)
+  }
+
+  function copyMap(){
+  }
+
   return <div>
     {modalList}
     {isEdit ?
@@ -82,7 +99,9 @@ export default function MapEditor(props: Props) {
       </DropDown>
       {/* <DropDown iconName='grid'></DropDown> */}
       <DropDown iconName={isEdit ? 'play' : 'stop'} onClick={() => setIsEdit(!isEdit)}></DropDown>
-      <DropDown iconName='export'></DropDown>
+      <DropDown iconName='export'>
+        {sparseMapToString({ sizeX, sizeY, mapItems })}
+      </DropDown>
     </ControlPanel>
   </div>
 }
