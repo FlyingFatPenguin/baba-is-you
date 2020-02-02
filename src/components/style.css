@@ -47,6 +47,10 @@ div.baba-grid>div.baba-object {
   top: 0;
 }
 
+div.baba-object {
+  user-select: none;
+}
+
 div.baba-object img {
   height: 100%;
   width: 100%;
@@ -58,5 +62,5 @@ div.baba-object div {
   text-align: center;
   word-wrap: break-word;
   font-weight: 500;
-  /* padding: 3px; */
+  margin: auto;
 }
