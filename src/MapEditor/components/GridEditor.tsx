@@ -23,13 +23,24 @@ export default function GridEditor(props: Props) {
     }
   }
 
+  function handleRemove(index: number) {
+    return () => {
+      setObjList(objList.filter((v, i) => i !== index))
+    }
+  }
+
   return <div className='grid-editor'>
     <div>
       <button onClick={() => props.onConfirm(objList)}>确认</button>
       <button onClick={props.onCancel}>取消</button>
     </div>
     <div className='obj-list'>
-      {objList.map((v, i) => <ObjectEditor object={v} key={'objList' + i} onChangeDirection={handleChangeDirection(i)}></ObjectEditor>)}
+      {objList.map((v, i) => <ObjectEditor
+        object={v}
+        onChangeDirection={handleChangeDirection(i)}
+        onRemove={handleRemove(i)}
+        key={'objList' + i}
+      ></ObjectEditor>)}
     </div>
     <Inventory onClick={addObj}></Inventory>
   </div>

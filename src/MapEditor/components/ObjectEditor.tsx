@@ -5,11 +5,13 @@ import { GameObjectInterface, Direction } from '../../GameCore/interface/Interfa
 interface Props {
   object: GameObjectInterface
   onChangeDirection: (direction: Direction) => void
+  onRemove: () => void
 }
 
 export default function ObjectEditor(props: Props) {
   const object = props.object
   return <div>
+    <button onClick={props.onRemove}>删除</button>
     <BabaObject obj={object}></BabaObject>
     direction:
     <select name="direction" value={object.direction} onChange={ev => props.onChangeDirection(parseInt(ev.currentTarget.value) as Direction)}>

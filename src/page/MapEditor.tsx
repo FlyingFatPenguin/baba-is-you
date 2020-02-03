@@ -61,7 +61,10 @@ export default function MapEditor(props: Props) {
   // ***** 地图弹窗 *****
   function setGridData(pos: Pos, gridData: GridInterface) {
     // 去重
-    const newMapItems = [...mapItems.filter(v => v.pos.x !== pos.x || v.pos.y !== pos.y), { pos, gridData }]
+    const newMapItems = [...mapItems.filter(v => v.pos.x !== pos.x || v.pos.y !== pos.y)]
+    if (gridData.length !== 0) {
+      newMapItems.push({ pos, gridData })
+    }
     setMapItems(newMapItems)
   }
   function getGridData(pos: Pos) {
