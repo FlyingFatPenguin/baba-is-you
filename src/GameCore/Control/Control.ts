@@ -15,7 +15,6 @@ import {
   allData,
   isOut
 } from "./ControlHelper";
-import { objects } from "../data/MapHelper";
 
 
 export function unionControl(...args: Control[]): Control {
@@ -121,20 +120,16 @@ export function winBuilder(callback: () => void): Control {
 // function ruleNameWithProp(rules: Rules, prop: string) {
 //   return Object.keys(rules).filter(name => rules[name].includes(prop))
 // }
-const NOUN_NAMES = Object.keys(objects)
-
-
-export const transformControl: Control = {
+export const transformControl: (nounNames: string[]) => Control = (nounNames) => ({
   ...defaultControl,
   onFinalCheck(context: Context) {
     const { rules } = context
-    const nounNames = NOUN_NAMES
     for (let name of nounNames) {
       const result = (rules[name] || []).filter(v => nounNames.includes(v))
       result.length && transfrom(context, name, result)
     }
   }
-}
+})
 
 export const sinkControl: Control = {
   ...defaultControl,

@@ -17,6 +17,7 @@ import {
 } from '../GameCore/Control/Control';
 import Scene from '../GameCore/Model/Scene';
 import { addTouchListener, removeTouchListener, TouchType } from '../utils/TouchHelper';
+import { objects } from '../GameCore/data/MapHelper';
 
 interface Props {
   startGameMap: GameMap,
@@ -155,7 +156,7 @@ class BabaIsYou extends React.Component<Props, States> {
       stopCheck,
       pushThings,
       winControl,
-      transformControl,
+      transformControl(Object.keys(objects)),
       sinkControl,
       defeatControl,
       meltHotControl,
