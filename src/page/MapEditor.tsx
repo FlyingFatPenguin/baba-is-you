@@ -56,10 +56,9 @@ export default function MapEditor(props: Props) {
   // 画笔写出的参照
   const [sourceGrid, setSourceGrid] = React.useState([] as GameObjectInterface[])
 
-  const gameMap = mapItems.reduce((p, v) =>
-    p.setPos(v.pos, () => v.gridData),
-    mapBuilder(sizeX, sizeY))
-    .build()
+  const gameMap = React.useMemo(() =>
+    mapItems.reduce((p, v) => p.setPos(v.pos, () => v.gridData),
+      mapBuilder(sizeX, sizeY)).build(), [sizeX, sizeY, mapItems])
 
   function changeMapSize(callback: (newValue: number) => void) {
     return function (ev: React.ChangeEvent<HTMLInputElement>) {
