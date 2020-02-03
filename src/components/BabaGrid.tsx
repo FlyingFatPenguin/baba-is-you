@@ -11,7 +11,7 @@ function BabaGrid(props: Props) {
   const grid = props.grid;
   const objs = grid
   return <div className='baba-grid'>
-    {objs.map((obj, i) => <BabaObject obj={obj} key={'baba-obj' + i} />)}
+    {objs.map((obj, i) => <BabaObject obj={obj} key={'baba-obj' + i}/>)}
   </div>
 }
 
