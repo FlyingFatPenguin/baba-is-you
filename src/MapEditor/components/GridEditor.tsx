@@ -7,13 +7,20 @@ import Inventory from './Inventory';
 interface Props {
   onConfirm: (objList: GameObjectInterface[]) => void
   onCancel: () => void
+  startGrid: GameObjectInterface[]
 }
 
 export default function GridEditor(props: Props) {
-  const [objList, setObjList] = React.useState([] as GameObjectInterface[])
+  const [objList, setObjList] = React.useState(props.startGrid)
 
   function addObj(obj: GameObjectInterface) {
     setObjList([...objList, obj])
+  }
+
+  function handleChangeDirection(index: number) {
+    return function (direction: Direction) {
+      setObjList(objList.map((v, i) => i === index ? { ...v, direction } : v))
+    }
   }
 
   return <div className='grid-editor'>
@@ -22,7 +29,7 @@ export default function GridEditor(props: Props) {
       <button onClick={props.onCancel}>取消</button>
     </div>
     <div className='obj-list'>
-      {objList.map((v, i) => <ObjectEditor object={v} key={'objList' + i}></ObjectEditor>)}
+      {objList.map((v, i) => <ObjectEditor object={v} key={'objList' + i} onChangeDirection={handleChangeDirection(i)}></ObjectEditor>)}
     </div>
     <Inventory onClick={addObj}></Inventory>
   </div>

@@ -5,7 +5,7 @@ import ControlPanel from '../MapEditor/components/ControlPanel';
 import { mapBuilder } from '../GameCore/data/MapHelper';
 import DropDown from '../MapEditor/components/DropDown';
 import Inventory from '../MapEditor/components/Inventory';
-import { GameObjectInterface } from '../GameCore/interface/Interface';
+import { GameObjectInterface, GridInterface } from '../GameCore/interface/Interface';
 import BabaIsYou from '../components/BabaIsYou';
 import copy from 'copy-to-clipboard'
 import { downloadFile } from '../utils/FileSystem';
@@ -59,9 +59,19 @@ export default function MapEditor(props: Props) {
   }
 
   // ***** 地图弹窗 *****
+  function setGridData(pos: Pos, gridData: GridInterface) {
+    // 去重
+    const newMapItems = [...mapItems.filter(v => v.pos.x !== pos.x || v.pos.y !== pos.y), { pos, gridData }]
+    setMapItems(newMapItems)
+  }
+  function getGridData(pos: Pos) {
+    const result = mapItems.find(v => v.pos.x === pos.x && v.pos.y === pos.y)
+    return result && result.gridData
+  }
+
   function handleConfirm(objList: GameObjectInterface[]) {
     if (!currentPos) { return }
-    setMapItems([...mapItems, { pos: currentPos, gridData: objList }])
+    setGridData(currentPos, objList)
     setCurrentPos(undefined)
   }
 
@@ -84,7 +94,7 @@ export default function MapEditor(props: Props) {
   return <div>
     {isEdit &&
       currentPos &&
-      <GridEditor onConfirm={handleConfirm} onCancel={handleCancel}></GridEditor>}
+      <GridEditor onConfirm={handleConfirm} onCancel={handleCancel} startGrid={getGridData(currentPos) || []}></GridEditor>}
     {isEdit ?
       <BabaScene showPos scene={new Scene(gameMap)} onClick={editGrid}></BabaScene> :
       <BabaIsYou startGameMap={gameMap} onWin={console.log}></BabaIsYou>
