@@ -1,6 +1,5 @@
 import * as React from 'react';
 import '../css/controlPanel.css'
-import DropDown from './DropDown';
 
 export default class ControlPanel extends React.Component {
   render() {

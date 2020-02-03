@@ -4,10 +4,8 @@ import Scene from '../GameCore/Model/Scene';
 import ControlPanel from '../MapEditor/components/ControlPanel';
 import { mapBuilder } from '../GameCore/data/MapHelper';
 import DropDown from '../MapEditor/components/DropDown';
-import Inventory from '../MapEditor/components/Inventory';
 import { GameObjectInterface, GridInterface } from '../GameCore/interface/Interface';
 import BabaIsYou from '../components/BabaIsYou';
-import copy from 'copy-to-clipboard'
 import { downloadFile } from '../utils/FileSystem';
 import GridEditor from '../MapEditor/components/GridEditor';
 import Icon from '../MapEditor/components/Icon';
@@ -101,7 +99,7 @@ export default function MapEditor(props: Props) {
   }
   function getGridData(pos: Pos) {
     const result = mapItems.find(v => v.pos.x === pos.x && v.pos.y === pos.y)
-    return result && result.gridData || []
+    return (result && result.gridData) || []
   }
 
   function handleConfirm(objList: GameObjectInterface[]) {

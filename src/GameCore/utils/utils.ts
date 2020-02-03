@@ -49,7 +49,7 @@ export function intersect<T>(a: T[], b: T[], equals: Equals<T>): T[] {
 export function deepClone<T>(source: T): T {
   const targetObj: any = Array.isArray(source) ? [] : {}; // 判断复制的目标是数组还是对象
   for (let keys in source) { // 遍历目标
-    if ((<any>source).hasOwnProperty(keys)) {
+    if ((source as any).hasOwnProperty(keys)) {
       if (source[keys] && typeof source[keys] === 'object') { // 如果值是对象，就递归一下
         targetObj[keys] = Array.isArray(source[keys]) ? [] : {};
         targetObj[keys] = deepClone(source[keys]);
