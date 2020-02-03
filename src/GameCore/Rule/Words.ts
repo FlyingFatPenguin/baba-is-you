@@ -52,5 +52,5 @@ function ruleInLine(textLine: Word[]): Sentence[] {
   }
   // 将 undefined 作为分割符后
   // 剩余的内容必然是没有 undefined 的
-  return <any>split(textLine, undefined).filter(v => v.length)
+  return split(textLine, undefined).filter(v => v.length) as any
 }

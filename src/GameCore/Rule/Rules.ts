@@ -1,4 +1,4 @@
-import { getSentences, Sentence } from './Words'
+import { getSentences } from './Words'
 import { SceneInterface, Rules } from '../interface/Interface';
 import { range } from '../utils/utils';
 import { isText, getTextObjContent } from '../interface/GameObjectInterface';
@@ -17,24 +17,24 @@ function getSentencesFromScene(scene: SceneInterface) {
   return getSentences(textTable)
 }
 
-function findRuleInSentences(sentences: Sentence[]) {
-  const emptyList: Rules = {}
-  const result = sentences
-    // 判断该句子为主系表结构
-    .filter(sentence => sentence.length === 3 && sentence[1] === 'is')
-    // 将主语作为键, 表语作为值
-    .reduce((p, [subject, _, predicative]) => {
-      if (subject !== undefined && predicative !== undefined) {
-        if (!(subject in p)) {
-          p[subject] = []
-        }
-        p[subject].push(predicative)
-      }
-      return p
-    }, emptyList)
+// function findRuleInSentences(sentences: Sentence[]) {
+//   const emptyList: Rules = {}
+//   const result = sentences
+//     // 判断该句子为主系表结构
+//     .filter(sentence => sentence.length === 3 && sentence[1] === 'is')
+//     // 将主语作为键, 表语作为值
+//     .reduce((p, [subject, _, predicative]) => {
+//       if (subject !== undefined && predicative !== undefined) {
+//         if (!(subject in p)) {
+//           p[subject] = []
+//         }
+//         p[subject].push(predicative)
+//       }
+//       return p
+//     }, emptyList)
 
-  return result
-}
+//   return result
+// }
 
 type ArrayMap<T> = { [key: string]: T[] }
 /**

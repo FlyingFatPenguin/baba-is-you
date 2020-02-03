@@ -21,6 +21,7 @@ div.baba-scene>ul {
 
 div.baba-scene>ul>li {
   list-style: none;
+  user-select: none;
 }
 
 div.baba-grid {
@@ -41,19 +42,29 @@ div.baba-grid>img {
   position: absolute;
 }
 
+div.baba-grid>div.baba-object {
+  position: absolute;
+  top: 0;
+}
+
 div.baba-object {
-  font-size: 1.2rem;
-  border-radius: 5px;
-  /* padding: 10%; */
-  text-align: center;
+  user-select: none;
+  width: 100%;
+  height: 100%;
+}
+
+div.baba-object img {
   height: 100%;
   width: 100%;
-  /* max-width: 100%; */
+}
+
+div.baba-object div {
+  width: 100%;
+  height: 100%;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  text-align: center;
   word-wrap: break-word;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   font-weight: 500;
-  /* line-height: 2rem; */
+  margin: auto;
 }

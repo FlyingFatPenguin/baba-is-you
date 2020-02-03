@@ -85,7 +85,7 @@ class BabaIsYou extends React.Component<Props, States> {
       return
     }
     // 整个窗口的尺寸
-    const { clientHeight, clientWidth } = document.body
+    const { innerHeight: clientHeight, innerWidth: clientWidth } = window
     // 当前元素的尺寸
     const sceneHeight = current.clientHeight
     const sceneWidth = current.clientWidth

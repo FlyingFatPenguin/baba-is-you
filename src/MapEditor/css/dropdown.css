@@ -1,0 +1,26 @@
+div.dropdown {
+  position: relative;
+}
+
+div.dropdown>img {
+  max-height: 8vh;
+  user-select: none;
+}
+
+div.dropdown>img:hover {
+  max-height: 9vh;
+}
+
+div.dropdown div.drop-content {
+  display: none;
+  position: absolute;
+  top: 0;
+  transform: translate(0, -100%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px 10px 0 0;
+}
+
+div.dropdown:hover div.drop-content {
+  display: block;
+}
