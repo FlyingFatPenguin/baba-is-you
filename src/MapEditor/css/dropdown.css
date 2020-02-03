@@ -17,7 +17,8 @@ div.dropdown div.drop-content {
   top: 0;
   transform: translate(0, -100%);
   background-color: white;
-  padding: 10px;
+  padding: 20px;
+  border-radius: 10px 10px 0 0;
 }
 
 div.dropdown:hover div.drop-content {

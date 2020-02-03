@@ -41,6 +41,7 @@ export default function GridEditor(props: Props) {
         onRemove={handleRemove(i)}
         key={'objList' + i}
       ></ObjectEditor>)}
+      {objList.length === 0 && <h1>点击下方选择加入物品</h1>}
     </div>
     <Inventory onClick={addObj}></Inventory>
   </div>

@@ -1,5 +1,5 @@
 div.grid-editor {
-  background-color: white;
+  background-color: #707070;
   position: fixed;
   z-index: 2;
   top: 50%;
@@ -12,6 +12,7 @@ div.grid-editor {
 
 div.obj-list {
   margin: 0 0 10px;
+  min-height: 20vh;
   display: flex;
 }
 

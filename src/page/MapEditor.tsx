@@ -40,6 +40,7 @@ export default function MapEditor(props: Props) {
   const [sizeY, setSizeY] = React.useState(10)
   const [mapItems, setMapItems] = React.useState([] as MapItem[])
   const [currentPos, setCurrentPos] = React.useState(undefined as undefined | { x: number, y: number })
+  const [name, setName] = React.useState('BabaMap')
   const gameMap = mapItems.reduce((p, v) =>
     p.setPos(v.pos, () => v.gridData),
     mapBuilder(sizeX, sizeY))
@@ -94,8 +95,7 @@ export default function MapEditor(props: Props) {
 
   function copyMap() {
     const data = sparseMapToString({ sizeX, sizeY, mapItems })
-    // copy()
-    downloadFile(data, '1.json')
+    downloadFile(data, name + '.json')
   }
 
   function handleImport(ev: React.ChangeEvent<HTMLInputElement>) {
@@ -108,15 +108,20 @@ export default function MapEditor(props: Props) {
       const result = reader.result
       if (result) {
         const sparseMap = stringToSparseMap(result.toString())
-        // const name = file.name
+        const name = file.name.split('.')[0]
         const { sizeX = 10, sizeY = 10 } = sparseMap
         const mapItems = sparseMap.mapItems
         setSizeX(sizeX)
         setSizeY(sizeY)
         setMapItems(mapItems)
+        setName(name)
       }
     };
     reader.readAsText(file)
+  }
+
+  function changeName(ev: React.ChangeEvent<HTMLInputElement>) {
+    setName(ev.currentTarget.value)
   }
 
 
@@ -130,16 +135,22 @@ export default function MapEditor(props: Props) {
     }
     <ControlPanel>
       <DropDown iconName='size'>
-        <h1>hhh</h1>
+        <h1>地图尺寸</h1>
+        宽度: {sizeX}
         <input type="range" max='30' min='6' step='2' value={sizeX} onChange={changeMapSize(setSizeX)} />
+        高度: {sizeY}
         <input type="range" max='30' min='6' step='2' value={sizeY} onChange={changeMapSize(setSizeY)} />
       </DropDown>
       {/* <DropDown iconName='grid'></DropDown> */}
       <DropDown iconName={isEdit ? 'play' : 'stop'} onClick={() => setIsEdit(!isEdit)}></DropDown>
       <DropDown iconName='import'>
+        <h1>选择导入文件</h1>
         <input type='file' onChange={handleImport}></input>
       </DropDown>
-      <DropDown iconName='export' onClick={copyMap}>
+      <DropDown iconName='export'>
+        <h1>编辑导出名称</h1>
+        <input type="text" value={name} onChange={changeName} />
+        <button onClick={copyMap}>导出 {name}</button>
       </DropDown>
     </ControlPanel>
   </div>
