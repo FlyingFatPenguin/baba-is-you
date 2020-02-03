@@ -9,14 +9,13 @@ div.grid-editor {
   border-radius: 10px;
 }
 
+
 div.obj-list {
   margin: 0 0 10px;
   display: flex;
-  justify-content: center;
 }
 
 div.obj-list img {
   max-width: 8vh;
   max-height: 8vh;
 }
-

@@ -1,28 +1,29 @@
 import * as React from 'react';
 import { GameObjectInterface, Direction } from '../../GameCore/interface/Interface';
-import BabaObject from '../../components/BabaObject';
 import '../css/GridEditor.css'
 import ObjectEditor from './ObjectEditor';
+import Inventory from './Inventory';
 
 interface Props {
-
+  onConfirm: (objList: GameObjectInterface[]) => void
+  onCancel: () => void
 }
 
 export default function GridEditor(props: Props) {
   const [objList, setObjList] = React.useState([] as GameObjectInterface[])
 
-  function addObj() {
-    setObjList([...objList, { name: 'wall', direction: Direction.wait }])
+  function addObj(obj: GameObjectInterface) {
+    setObjList([...objList, obj])
   }
 
   return <div className='grid-editor'>
-    <div className='obj-list'>
-      {objList.map(v => <ObjectEditor object={v}></ObjectEditor>)}
-      <img src={require('../img/add.png')} onClick={addObj}></img>
-    </div>
     <div>
-      <button>确认</button>
-      <button>取消</button>
+      <button onClick={() => props.onConfirm(objList)}>确认</button>
+      <button onClick={props.onCancel}>取消</button>
     </div>
+    <div className='obj-list'>
+      {objList.map((v, i) => <ObjectEditor object={v} key={'objList' + i}></ObjectEditor>)}
+    </div>
+    <Inventory onClick={addObj}></Inventory>
   </div>
 }

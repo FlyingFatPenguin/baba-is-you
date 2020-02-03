@@ -10,6 +10,6 @@ export default function ObjectEditor(props: Props) {
   const object = props.object
   return <div>
     <BabaObject obj={object}></BabaObject>
-    name: <input type="text" value={object.name}/>
+    {/* name: <input type="text" value={object.name}/> */}
   </div>
 }

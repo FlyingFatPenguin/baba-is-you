@@ -1,5 +1,5 @@
 div.inventory {
-  width: 80vw;
+  display: block;
   padding: 10px;
   background-color: rgba(255, 255, 255, 0.6);
   border-radius: 10px;
@@ -9,12 +9,22 @@ div.center {
   position: fixed;
   z-index: 2;
   top: 50%;
-  left:50%;
+  left: 50%;
   transform: translate(-50%, -50%);
 }
-div.inventory div{
+
+div.inventory>div {
   float: left;
 }
+
 div.inventory img {
   max-width: 9vw;
+}
+
+div.clear-fix::after {
+  content: '';
+  height: 0;
+  clear: both;
+  visibility: hidden;
+  display: block;
 }

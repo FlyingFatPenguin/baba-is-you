@@ -16,7 +16,7 @@ const allGameObj = [
 export default function Inventory(props: Props) {
   const handleClick = (obj: GameObjectInterface) => () => props.onClick(obj)
 
-  return <div className='inventory center'>
+  return <div className='inventory clear-fix'>
     {
       allGameObj.map((v, i) => <div onClick={handleClick(v)} key={i}>
         <BabaObject obj={v} style={{ width: '4rem', height: '4rem' }}></BabaObject>

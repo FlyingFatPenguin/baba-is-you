@@ -9,6 +9,7 @@ import { GameObjectInterface } from '../GameCore/interface/Interface';
 import BabaIsYou from '../components/BabaIsYou';
 import copy from 'copy-to-clipboard'
 import { downloadFile } from '../utils/FileSystem';
+import GridEditor from '../MapEditor/components/GridEditor';
 
 interface Props {
 
@@ -38,6 +39,7 @@ export default function MapEditor(props: Props) {
   const [sizeX, setSizeX] = React.useState(10)
   const [sizeY, setSizeY] = React.useState(10)
   const [mapItems, setMapItems] = React.useState([] as MapItem[])
+  const [currentPos, setCurrentPos] = React.useState(undefined as undefined | { x: number, y: number })
   const gameMap = mapItems.reduce((p, v) =>
     p.setPos(v.pos, () => v.gridData),
     mapBuilder(sizeX, sizeY))
@@ -48,36 +50,25 @@ export default function MapEditor(props: Props) {
       callback(parseInt(ev.currentTarget.value, 10))
     }
   }
-  async function handleClick(x: number, y: number) {
-    const obj = await selectGameObject()
-    setMapItems([...mapItems, { pos: { x, y }, gridData: [obj] }])
-  }
-
   async function editGrid(x: number, y: number) {
-
+    if (currentPos) {
+      setCurrentPos(undefined)
+    } else {
+      setCurrentPos({ x, y })
+    }
   }
 
   // ***** 地图弹窗 *****
-  const [modalList, setModalList] = React.useState([] as JSX.Element[])
-
-  function clearAllModal() {
-    setModalList([])
+  function handleConfirm(objList: GameObjectInterface[]) {
+    if (!currentPos) { return }
+    setMapItems([...mapItems, { pos: currentPos, gridData: objList }])
+    setCurrentPos(undefined)
   }
 
-  function selectGameObject() {
-    return new Promise((resolve) => {
-      if (modalList.length > 0) {
-        clearAllModal()
-        return
-      }
-      const inventory = <Inventory onClick={handleClick}></Inventory>
-      function handleClick(obj: GameObjectInterface) {
-        setModalList(modalList.filter(v => v !== inventory))
-        resolve(obj)
-      }
-      setModalList([...modalList, inventory])
-    }) as Promise<GameObjectInterface>
+  function handleCancel() {
+    setCurrentPos(undefined)
   }
+
 
   // 地图导入导出
   function sparseMapToString(sparseMap: SparseMap) {
@@ -91,9 +82,11 @@ export default function MapEditor(props: Props) {
   }
 
   return <div>
-    {modalList}
+    {isEdit &&
+      currentPos &&
+      <GridEditor onConfirm={handleConfirm} onCancel={handleCancel}></GridEditor>}
     {isEdit ?
-      <BabaScene showPos scene={new Scene(gameMap)} onClick={handleClick}></BabaScene> :
+      <BabaScene showPos scene={new Scene(gameMap)} onClick={editGrid}></BabaScene> :
       <BabaIsYou startGameMap={gameMap} onWin={console.log}></BabaIsYou>
     }
     <ControlPanel>
