@@ -88,11 +88,37 @@ export default function MapEditor(props: Props) {
     return JSON.stringify(sparseMap)
   }
 
+  function stringToSparseMap(data: string) {
+    return JSON.parse(data)
+  }
+
   function copyMap() {
     const data = sparseMapToString({ sizeX, sizeY, mapItems })
     // copy()
     downloadFile(data, '1.json')
   }
+
+  function handleImport(ev: React.ChangeEvent<HTMLInputElement>) {
+    const file = (ev.currentTarget.files || [])[0]
+    if (!file) {
+      return
+    }
+    var reader = new FileReader()
+    reader.onload = function () {
+      const result = reader.result
+      if (result) {
+        const sparseMap = stringToSparseMap(result.toString())
+        // const name = file.name
+        const { sizeX = 10, sizeY = 10 } = sparseMap
+        const mapItems = sparseMap.mapItems
+        setSizeX(sizeX)
+        setSizeY(sizeY)
+        setMapItems(mapItems)
+      }
+    };
+    reader.readAsText(file)
+  }
+
 
   return <div>
     {isEdit &&
@@ -110,6 +136,9 @@ export default function MapEditor(props: Props) {
       </DropDown>
       {/* <DropDown iconName='grid'></DropDown> */}
       <DropDown iconName={isEdit ? 'play' : 'stop'} onClick={() => setIsEdit(!isEdit)}></DropDown>
+      <DropDown iconName='import'>
+        <input type='file' onChange={handleImport}></input>
+      </DropDown>
       <DropDown iconName='export' onClick={copyMap}>
       </DropDown>
     </ControlPanel>
