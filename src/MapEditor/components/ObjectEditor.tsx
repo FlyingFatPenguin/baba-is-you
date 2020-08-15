@@ -19,6 +19,7 @@ export default function ObjectEditor(props: Props) {
       <option value={Direction.right}>right</option>
       <option value={Direction.up}>up</option>
       <option value={Direction.down}>down</option>
+      <option value={Direction.wait}>wait</option>
     </select>
   </div>
 }
