@@ -10,7 +10,7 @@ import { getNextPosition, negativeDirection } from "./move";
 import { intersect } from "../utils/utils";
 import {
   allGrid,
-  transfrom,
+  transform,
   findPositionsWithRule,
   allData,
   isOut
@@ -49,7 +49,7 @@ export const defaultControl: Control = {
   onFinalCheck(context: Context): void { },
 }
 
-const havaProp = (rules: Rules, ruleName: string) =>
+const haveProp = (rules: Rules, ruleName: string) =>
   (v: ObjectInfo) =>
     (rules[v.data.name] || []).includes(ruleName)
 
@@ -57,7 +57,7 @@ export const youCanMove: Control = {
   ...defaultControl,
   onStart(context: Context) {
     const { scene, move, direction, rules } = context
-    allData(scene).filter(havaProp(rules, 'you')).forEach(v => move(v.position, direction))
+    allData(scene).filter(haveProp(rules, 'you')).forEach(v => move(v.position, direction))
   },
 }
 
@@ -77,10 +77,7 @@ export const stopCheck: Control = {
     const nextPos = getNextPosition(pos, direction)
     const positions = findPositionsWithRule(context, nextPos, 'stop')
     const isStop = positions && positions.length
-    if (isStop) {
-      return false
-    }
-    return true
+    return !isStop
   }
 }
 
@@ -108,8 +105,8 @@ export function winBuilder(callback: () => void): Control {
     ...defaultControl,
     onFinalCheck(context) {
       const { rules, scene } = context
-      const winList = allData(scene).filter(havaProp(rules, 'win')).map(v => v.position)
-      const youList = allData(scene).filter(havaProp(rules, 'you')).map(v => v.position)
+      const winList = allData(scene).filter(haveProp(rules, 'win')).map(v => v.position)
+      const youList = allData(scene).filter(haveProp(rules, 'you')).map(v => v.position)
       if (intersect(youList, winList, (a, b) => a.x === b.x && a.y === b.y).length) { // 达到胜利条件
         callback()
       }
@@ -126,7 +123,7 @@ export const transformControl: (nounNames: string[]) => Control = (nounNames) =>
     const { rules } = context
     for (let name of nounNames) {
       const result = (rules[name] || []).filter(v => nounNames.includes(v))
-      result.length && transfrom(context, name, result)
+      result.length && transform(context, name, result)
     }
   }
 })
@@ -137,8 +134,8 @@ export const sinkControl: Control = {
     const { rules, scene, removeObj } = context
     allGrid(scene).forEach(objInfos => {
       // 将 x, y 坐标相同的元素分类
-      const sinkList = objInfos.filter(havaProp(rules, 'sink'))
-      const canSinkList = objInfos.filter(v => !havaProp(rules, 'sink')(v))
+      const sinkList = objInfos.filter(haveProp(rules, 'sink'))
+      const canSinkList = objInfos.filter(v => !haveProp(rules, 'sink')(v))
 
       // 每一个 sink 将和一个 canSink 共同湮灭
       for (let i in sinkList) {
@@ -160,8 +157,8 @@ export const defeatControl: Control = {
     const { scene, rules, removeObj } = context
     allGrid(scene).forEach(objInfos => {
       // 将 x, y 坐标相同的元素分类
-      const youList = objInfos.filter(havaProp(rules, 'you'))
-      const defeatList = objInfos.filter(havaProp(rules, 'defeat'))
+      const youList = objInfos.filter(haveProp(rules, 'you'))
+      const defeatList = objInfos.filter(haveProp(rules, 'defeat'))
 
       // 每一个 sink 将和一个 canSink 共同湮灭
       if (defeatList.length) {
@@ -177,10 +174,9 @@ export const meltHotControl: Control = {
     const { rules, scene, removeObj } = context
     allGrid(scene).forEach(objInfos => {
       // 将 x, y 坐标相同的元素分类
-      const meltList = objInfos.filter(havaProp(rules, 'melt'))
-      const hotList = objInfos.filter(havaProp(rules, 'hot'))
+      const meltList = objInfos.filter(haveProp(rules, 'melt'))
+      const hotList = objInfos.filter(haveProp(rules, 'hot'))
 
-      // 每一个 sink 将和一个 canSink 共同湮灭
       if (hotList.length) {
         meltList.forEach(objInfo => removeObj(objInfo.position))
       }
@@ -192,7 +188,7 @@ export const moveControl: Control = {
   ...defaultControl,
   onStart(context: Context) {
     const { scene, move, rules, moveCheck } = context
-    allData(scene).filter(havaProp(rules, 'move'))
+    allData(scene).filter(haveProp(rules, 'move'))
       .forEach(v => {
         const direction = v.data.direction
         const pos = v.position

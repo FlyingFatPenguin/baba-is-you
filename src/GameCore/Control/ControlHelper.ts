@@ -11,7 +11,7 @@ import { range } from "../utils/utils"
 
 
 
-export function transfrom(context: Context, from: string, target: string[]) {
+export function transform(context: Context, from: string, target: string[]) {
   const { addObj, removeObj, scene } = context
   allData(scene)
     .filter(v => v.data.name === from)
